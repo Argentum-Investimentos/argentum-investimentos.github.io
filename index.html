@@ -14,7 +14,7 @@
 <title>Tributário 2027 · Research Argentum</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -380,6 +380,56 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
   .menubar{-webkit-backdrop-filter:none;backdrop-filter:none;background:#0A1A36}
   .hero-fig{-webkit-backdrop-filter:none;backdrop-filter:none;background:#122F5C}
 }
+/* ═══ VISUAL NOITE PRIVATE (aprovado em 11/11/2026: Cormorant Garamond + Hanken Grotesk) ═══ */
+:root{--bg:#040A16;--card:#0A1529;--card-b:#16294A;--card-bar:#0C1A31;--hi:#0F2850;--hi-b:#2B5C9C;
+  --row:#14264A;--hair:#1E3560;--text:#C9D6EA;--muted:#7E93B3;
+  --serif:'Instrument Serif','New York',ui-serif,Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --display:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif}
+html,body{background:var(--bg)}
+.bgfix{background:radial-gradient(1100px 620px at 78% -8%,#143566 0%,#081530 38%,#040A16 72%)!important}
+.wm{fill-opacity:.035}
+.menubar{background:#040A16!important;border-bottom:1px solid #12223F}
+h1,h2,.h-section{text-transform:none;font-weight:400;letter-spacing:-.01em}
+h1 span,h2 span,.h-section span{font-style:italic;color:#E3AE3C}
+.hero h1{font-size:clamp(52px,7.6vw,96px);line-height:.96}
+.h-section{font-size:40px;line-height:1.05}
+.h-section::before{width:22px;height:1px}
+.phead h2{font-size:clamp(38px,5vw,58px)}
+.card,.kpi,.win,.tp,.io-c,.pk,.ei,.next,.ph-stat,.res-tot,.cq-q,.duel,.strip{border-radius:22px}
+.hero-fig{border-radius:26px;background:#0B1C38;border-color:#1E3A66;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.kpi::before{display:none}
+.kpi .k{color:var(--c,#7AA5D6)}
+.kpi .v,.bignum,.ph-stat .v,.res-tot .v,.hero-fig .big,.tp .yr{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.kpi .v{font-size:44px} .res-tot .v{font-size:48px} .ph-stat .v{font-size:52px}
+.win-bar{background:transparent;border-bottom-color:var(--row);letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+.sim-out{background:#081631}
+.chip,.seg button,.cq-b{border-radius:999px}
+.chip{background:transparent;border-color:#22406A}
+.seg{border-radius:999px;background:transparent}
+.rb{background:transparent}
+.footer{background:#030812}
+@media (max-width:560px){.h-section{font-size:30px}.kpi .v{font-size:36px}.res-tot .v{font-size:38px}.ph-stat .v{font-size:40px}}
+
+:root{--serif:'Cormorant Garamond','Garamond','EB Garamond','Iowan Old Style',Georgia,serif;
+  --sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --display:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --mono:var(--display)}
+body{letter-spacing:0;font-feature-settings:'lnum','tnum'}
+h1,h2,.h-section{font-family:var(--serif)!important;text-transform:uppercase!important;font-weight:600!important;letter-spacing:.035em!important;font-style:normal}
+h1 span,h2 span,.h-section span{font-style:normal!important}
+.hero h1{font-size:clamp(38px,5.4vw,68px)!important;line-height:1.04!important}
+.h-section{font-size:clamp(24px,2.6vw,32px)!important;line-height:1.12!important}
+.phead h2{font-size:clamp(28px,3.8vw,46px)!important}
+.quote{font-family:var(--serif);font-style:italic;font-size:25px}
+/* números: grotesca, alinhados, sem serifa de estilo antigo */
+.kpi .v,.bignum,.ph-stat .v,.res-tot .v,.hero-fig .big,.tp .yr,.ei .n,.cq-sum,.fld-h output,.res-r b,.kv .v,td.r,.sim-live b,.lst-r .y{
+  font-family:var(--display)!important;font-weight:600!important;letter-spacing:-.025em!important;font-variant-numeric:lining-nums tabular-nums}
+/* rótulos pequenos: caixa alta espaçada, sem fonte de terminal */
+.k,.kpi .k,.eye,th,.lst-h span,.win-bar,.cq-q .n,.next .nn{font-family:var(--display)!important;letter-spacing:.16em!important;font-weight:600}
+.t,.cq-q .t,.cq-r .tt,.next .t,.pk .t{font-family:var(--display);font-weight:600;letter-spacing:-.005em}
+@media (max-width:560px){.h-section{font-size:22px!important}.hero h1{font-size:34px!important}}
+
 </style>
 </head>
 <body>
