@@ -483,6 +483,22 @@ td:first-child{white-space:nowrap}
 .cen-t td{white-space:normal;min-width:120px}.cen-t td:first-child{min-width:150px}
 .cen-t tr.neg td.r.d{color:var(--blue-l)}.cen-t tr.pos td.r.d{color:var(--gold)}
 .dir .card .t{font-size:16.5px}
+.cmp-t{width:100%;border-collapse:collapse;font-size:14px}
+.cmp-t th{padding:8px 0 8px 8px;font-size:11px;border-bottom:1px solid var(--hair)}
+.cmp-t th.c1{color:var(--gold)} .cmp-t th.c2{color:var(--blue-l)}
+.cmp-t td{padding:9px 0 9px 8px;border-bottom:1px solid var(--row);font-weight:400;line-height:1.35}
+.cmp-t td:first-child{padding-left:0;color:var(--text);font-weight:500;white-space:normal}
+.cmp-t td small{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+.cmp-t td.r{white-space:nowrap;color:#fff;font-family:var(--display);font-variant-numeric:tabular-nums}
+.cmp-t tr.m td.r{color:var(--muted)}
+.cmp-t .na{color:var(--faint)}
+.cmp-t tr.tot td{font-weight:700}
+.cmp-t tr.tot td:first-child{color:#fff}
+.cmp-t tr.w1 td.c1,.cmp-t tr.w2 td.c2{color:var(--gold)}
+.cmp-t tr.dif td{border-bottom:0;padding-top:12px;font-weight:700}
+.cmp-t tr.dif td.r{color:var(--gold)}
+.cmp-t tr.eq td.r{color:var(--blue-xl)}
+@media (max-width:560px){.cmp-t{font-size:13px}.cmp-t td,.cmp-t th{padding-left:6px}}
 @media (max-width:700px){
   .cen-t thead{display:none}
   .cen-t tr{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 10px;padding:14px 16px;border-bottom:1px solid var(--row)}
@@ -570,10 +586,8 @@ td:first-child{white-space:nowrap}
         <div class="sim-live" aria-hidden="true"><span>A venda da carta entrega a mais</span><b>R$ 39.016</b></div></div>
         <div class="sim-out">
           <div class="res-tot" id="vTot"><div class="k">A venda da carta entrega a mais</div><div class="v">R$ 39.016</div><div class="n">Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>142,2% acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>83,5% ao ano</b>, já líquido.</div></div>
-          <div class="k out-k" style="margin-top:22px"><span id="kRowsCarta">Vender a carta contemplada</span></div>
-          <div class="res" id="rowsCarta"><div class="res-r"><span>Valor da carta no fim do prazo</span><b>R$ 264.600</b></div><div class="res-r"><span>Lance embutido (30%)</span><b class="m">− R$ 79.380</b></div><div class="res-r"><span>Carta sem o lance embutido</span><b>R$ 185.220</b></div><div class="res-r"><span>Recebido na venda (ágio de 40%)</span><b>R$ 74.088</b></div><div class="res-r"><span>Parcelas pagas</span><b class="m">− R$ 23.228</b></div><div class="res-r"><span>Lucro bruto</span><b>R$ 50.860</b></div><div class="res-r"><span>Imposto sobre o lucro (15%)</span><b class="m">− R$ 7.629</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 43.231</b></div></div>
-          <div class="k out-k">Aplicar no CDB</div>
-          <div class="res" id="rowsCdb"><div class="res-r"><span>Total aplicado</span><b>R$ 23.228</b></div><div class="res-r"><span>Rendimento bruto</span><b>R$ 5.037</b></div><div class="res-r"><span>Saldo bruto no resgate</span><b>R$ 28.265</b></div><div class="res-r"><span>Imposto de renda</span><b class="m">− R$ 822</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 4.215</b></div></div>
+          <div class="k out-k" style="margin-top:22px">Carta × CDB, lado a lado</div>
+          <table class="cmp-t"><thead><tr><th></th><th class="r c1" id="kRowsCarta">Carta</th><th class="r c2">CDB</th></tr></thead><tbody id="cmpT"><tr class="eq"><td>Saiu do bolso em 36 meses<small>mesmo valor nos dois</small></td><td class="r c1">R$ 23.228</td><td class="r c2">R$ 23.228</td></tr><tr class=""><td>Valor da carta no fim</td><td class="r c1">R$ 264.600</td><td class="r c2"><span class="na">—</span></td></tr><tr class="m"><td>Lance embutido (30%)</td><td class="r c1">− R$ 79.380</td><td class="r c2"><span class="na">—</span></td></tr><tr class=""><td>Carta sem o lance</td><td class="r c1">R$ 185.220</td><td class="r c2"><span class="na">—</span></td></tr><tr class=""><td>Valor bruto no fim<small>venda com ágio de 40% × saldo do CDB</small></td><td class="r c1">R$ 74.088</td><td class="r c2">R$ 28.265</td></tr><tr class=""><td>Ganho bruto</td><td class="r c1">R$ 50.860</td><td class="r c2">R$ 5.037</td></tr><tr class="m"><td>Imposto (15% × tabela regressiva)</td><td class="r c1">− R$ 7.629</td><td class="r c2">− R$ 822</td></tr><tr class="tot w1"><td>Líquido no fim</td><td class="r c1">R$ 66.459</td><td class="r c2">R$ 27.443</td></tr><tr class="tot w1"><td>Lucro líquido</td><td class="r c1">R$ 43.231</td><td class="r c2">R$ 4.215</td></tr><tr class="tot w1"><td>Rende ao ano, líquido</td><td class="r c1">83,5%</td><td class="r c2">11,4%</td></tr><tr class="dif"><td>Diferença no fim</td><td class="r c1">+R$ 39.016</td><td class="r c2"><span class="na">—</span></td></tr></tbody></table>
         </div>
       </div>
     </div>
@@ -800,14 +814,17 @@ function calcular(s) {
   }
   const bruto = serie[N - 1].cdbB, cdbLiq = serie[N - 1].cdbL, ir = bruto - cdbLiq;
 
-  // taxa equivalente: taxa mensal que leva as parcelas pagas ao valor líquido recebido
-  const vf = i => parcelas.reduce((a, p, k) => a + p * Math.pow(1 + i, N - k), 0) - cartaLiq;
-  let tir = null;
-  if (cartaLiq > 0) {
+  // taxa equivalente: taxa anual que leva as parcelas pagas ao valor líquido do fim
+  const taxa = alvo => {
+    if (!(alvo > 0)) return null;
+    const f = i => parcelas.reduce((a, p, k) => a + p * Math.pow(1 + i, N - k), 0) - alvo;
     let lo = -0.99, hi = 1;
-    if (vf(lo) < 0 && vf(hi) > 0) { for (let j = 0; j < 200; j++) { const mid = (lo + hi) / 2; vf(mid) > 0 ? hi = mid : lo = mid; } tir = Math.pow(1 + (lo + hi) / 2, 12) - 1; }
-  }
-  return { N, parcelas, pago, carta, embutido, liquida, recebe, fundo, ganho, irCarta, cartaLiq, bruto, ir, cdbLiq, serie, tir, s };
+    if (!(f(lo) < 0 && f(hi) > 0)) return null;
+    for (let j = 0; j < 200; j++) { const mid = (lo + hi) / 2; f(mid) > 0 ? hi = mid : lo = mid; }
+    return Math.pow(1 + (lo + hi) / 2, 12) - 1;
+  };
+  const tir = taxa(cartaLiq), tirCdb = taxa(cdbLiq);
+  return { N, parcelas, pago, carta, embutido, liquida, recebe, fundo, ganho, irCarta, cartaLiq, bruto, ir, cdbLiq, serie, tir, tirCdb, s };
 }
 // ágio que empata a venda com o CDB, para a carta e parcela escolhidas
 function empate(s, lance) {
@@ -853,28 +870,26 @@ function render() {
     : `Com o mesmo dinheiro saindo do bolso todo mês, aplicar no CDB termina <b>${pct(Math.abs(difPct))} acima</b> d${s.cont ? 'a venda da carta' : 'a venda da cota'} nestes valores.`) + '</div>');
   live(vk, vv);
 
-  txt('kRowsCarta', s.cont ? 'Vender a carta contemplada' : 'Vender a cota não contemplada');
-  put('rowsCarta', s.cont ? (
-    rr('Valor da carta no fim do prazo', brl(R.carta)) +
-    rr(`Lance embutido (${pct(s.lance, 0)})`, MENOS + brl(R.embutido), 'm') +
-    rr('Carta sem o lance embutido', brl(R.liquida)) +
-    rr(`Recebido na venda (ágio de ${pct(s.agio, 0)})`, brl(R.recebe)) +
-    rr('Parcelas pagas', MENOS + brl(R.pago), 'm') +
-    rr('Lucro bruto', brl(R.ganho)) +
-    (s.ir ? rr('Imposto sobre o lucro (15%)', MENOS + brl(R.irCarta), 'm') : '') +
-    rr('Lucro líquido', brl(R.ganho - R.irCarta), 'tot')
-  ) : (
-    rr('Parcelas pagas', brl(R.pago)) +
-    rr('Fundo comum pago', brl(R.fundo), '', 'parcelas sem taxa de administração e fundo de reserva') +
-    rr(`Recebido na venda (${pct(s.rec, 0)} do fundo comum)`, brl(R.recebe)) +
-    rr('Resultado', brl(R.ganho), 'tot')
-  ));
-  put('rowsCdb',
-    rr('Total aplicado', brl(R.pago)) +
-    rr('Rendimento bruto', brl(R.bruto - R.pago)) +
-    rr('Saldo bruto no resgate', brl(R.bruto)) +
-    rr('Imposto de renda', MENOS + brl(R.ir), 'm') +
-    rr('Lucro líquido', brl(R.cdbLiq - R.pago), 'tot'));
+  txt('kRowsCarta', s.cont ? 'Carta' : 'Cota');
+  const D = '<span class="na">—</span>';
+  const L = (k, a, b, cls = '', sub = '') => `<tr class="${cls}"><td>${k}${sub ? `<small>${sub}</small>` : ''}</td><td class="r c1">${a}</td><td class="r c2">${b}</td></tr>`;
+  const ganhoCdb = R.bruto - R.pago, maior = (a, b) => a >= b ? ' w1' : ' w2';
+  put('cmpT',
+    L('Saiu do bolso em 36 meses', brl(R.pago), brl(R.pago), 'eq', 'mesmo valor nos dois') +
+    (s.cont
+      ? L('Valor da carta no fim', brl(R.carta), D) +
+        L(`Lance embutido (${pct(s.lance, 0)})`, MENOS + brl(R.embutido), D, 'm') +
+        L('Carta sem o lance', brl(R.liquida), D) +
+        L('Valor bruto no fim', brl(R.recebe), brl(R.bruto), '', `venda com ágio de ${pct(s.agio, 0)} × saldo do CDB`)
+      : L('Fundo comum pago', brl(R.fundo), D, '', 'parcela sem taxa e fundo de reserva') +
+        L('Valor bruto no fim', brl(R.recebe), brl(R.bruto), '', `venda da cota a ${pct(s.rec, 0)} do fundo × saldo do CDB`)) +
+    L('Ganho bruto', brl(R.ganho), brl(ganhoCdb)) +
+    L(s.cont ? 'Imposto (15% × tabela regressiva)' : 'Imposto', R.irCarta > 0 ? MENOS + brl(R.irCarta) : brl(0), MENOS + brl(R.ir), 'm') +
+    L('Líquido no fim', brl(R.cartaLiq), brl(R.cdbLiq), 'tot' + maior(R.cartaLiq, R.cdbLiq)) +
+    L('Lucro líquido', brl(R.cartaLiq - R.pago), brl(R.cdbLiq - R.pago), 'tot' + maior(R.cartaLiq, R.cdbLiq)) +
+    L('Rende ao ano, líquido', R.tir === null ? '—' : pct(R.tir * 100), R.tirCdb === null ? '—' : pct(R.tirCdb * 100), 'tot' + maior(R.cartaLiq, R.cdbLiq)) +
+    L('Diferença no fim', dif >= 0 ? '+' + brl(dif) : D, dif < 0 ? '+' + brl(-dif) : D, 'dif')
+  );
 
   txt('rCarta', brl(R.cartaLiq));
   txt('rCartaP', (R.cartaLiq >= R.pago ? 'Lucro líquido de ' : 'Perda de ') + `${brl(Math.abs(R.cartaLiq - R.pago))} sobre ${brl(R.pago)} pagos em parcelas.`);
