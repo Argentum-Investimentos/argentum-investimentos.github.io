@@ -455,10 +455,9 @@ html{overflow-x:hidden;overflow-x:clip}
 .page{display:block}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips .chip{padding:8px 13px;font-size:13px}
+#iCen .chip.on{background:var(--gold);color:#0A1A36}
 .fld .seg{margin-top:2px}
 .fld .seg button{padding:8px 15px}
-#iPrazo{display:grid;grid-template-columns:repeat(5,1fr);width:100%}
-#iPrazo button{padding:8px 4px;white-space:nowrap}
 td:first-child{white-space:nowrap}
 .hero-sub b{white-space:nowrap}
 .res-r b.m{color:var(--muted)}
@@ -480,6 +479,23 @@ td:first-child{white-space:nowrap}
 .tip .r span:last-child{font-variant-numeric:tabular-nums;color:var(--gold)}
 .reset{font:600 13px var(--display);color:var(--blue-l);background:none;border:0;cursor:pointer;padding:0;margin-top:18px}
 .reset:hover{color:#fff}
+.nc .so-cont{display:none}.so-nc{display:none}.nc .so-nc{display:block}
+.cen-t td{white-space:normal;min-width:120px}.cen-t td:first-child{min-width:150px}
+.cen-t tr.neg td.r.d{color:var(--blue-l)}.cen-t tr.pos td.r.d{color:var(--gold)}
+.dir .card .t{font-size:16.5px}
+@media (max-width:700px){
+  .cen-t thead{display:none}
+  .cen-t tr{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 10px;padding:14px 16px;border-bottom:1px solid var(--row)}
+  .cen-t tr:last-child{border-bottom:0}
+  .cen-t td{display:block;padding:0;border:0;min-width:0!important;background:none!important}
+  .cen-t td:first-child{grid-column:1/-1;font-size:15.5px}
+  .cen-t td:nth-child(2){grid-column:1/-1;font-size:13.5px;color:var(--muted);margin-bottom:8px}
+  .cen-t td.r{text-align:left;font-size:15px;color:#fff}
+  .cen-t td.r::before{content:attr(data-l);display:block;font:600 10.5px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--blue-l);margin-bottom:2px}
+  .cen-t tr.on{background:#173E78}
+}
+.cond .kpi{cursor:default}
+.cond .kpi:hover{transform:none;border-color:var(--card-b)}
 .sim-out .res-tot{margin-top:0}
 .nojs .rb,.nojs .reset{display:none}
 @media (max-width:560px){.cmp .card .bignum{font-size:34px}}
@@ -495,29 +511,43 @@ td:first-child{white-space:nowrap}
 <div class="menubar"><div class="mb-in">
   <a href="#topo"><img src="data:image/png;base64,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" alt="Argentum | XP"></a>
   <span class="app">Consórcio × CDB</span><span class="sep"></span>
-  <nav class="topnav"><a href="#simulador">Simulador</a><a href="#mes">Mês a mês</a><a href="#ano">Ano a ano</a><a href="#premissas">Premissas</a><a href="#fontes">Fontes</a></nav>
+  <nav class="topnav"><a href="#condicoes">Condições</a><a href="#simulador">Simulador</a><a href="#cenarios">Cenários</a><a href="#direcional">Direcional</a><a href="#mes">Mês a mês</a><a href="#ano">Ano a ano</a><a href="#premissas">Premissas</a><a href="#fontes">Fontes</a></nav>
 </div></div>
 
 <div class="page" id="topo">
   <section class="hero"><div class="wrap"><div class="hero-grid">
     <div>
-      <div class="eye">Research Argentum · Consórcio de imóveis · Grupo 41056</div>
+      <div class="eye">Research Argentum · Consórcio XP de imóveis · Grupo 41056</div>
       <h1>Venda da carta <span>× CDB.</span></h1>
-      <p class="hero-sub">O mesmo valor de parcela, por <b id="hPrazo">3 anos</b>: pago no consórcio para vender a carta contemplada com ágio, ou aplicado todo mês num CDB de <b id="hCdb">14% ao ano</b>.</p>
+      <p class="hero-sub">O mesmo dinheiro, <b id="hParc">R$ 614</b> por mês durante <b>36 meses</b>, em dois caminhos: pago no consórcio para vender a carta contemplada com ágio, ou aplicado todo mês num CDB prefixado de <b id="hCdb">13,44% ao ano</b>.</p>
     </div>
     <div class="hero-fig">
-      <div class="lbl" id="hLbl">A mais com a venda da carta</div>
-      <div class="big" id="hBig">R$ 15.134</div>
-      <div class="note" id="hNote">Carta de R$ 240.000, parcelas de R$ 616 por mês no 1º ano, venda em 3 anos. Resultado líquido de imposto.</div>
+      <div class="lbl" id="hCen">Melhor cenário de mercado</div><div class="lbl" id="hLbl" style="color:var(--blue-l);margin-top:6px">A mais com a venda da carta</div>
+      <div class="big" id="hBig">R$ 39.016</div>
+      <div class="note" id="hNote">Carta de R$ 240.000, R$ 614 por mês no 1º ano, 36 meses. Ágio de 40%, lance embutido de 30%. Líquido de imposto.</div>
     </div>
   </div></div></section>
 
   <div class="wrap kpis-wrap"><div class="kpis">
-    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Total pago em parcelas</div><div class="v" id="kPago">R$ 23.303</div><div class="n" id="kPagoN">36 parcelas, igual nos dois caminhos</div></a>
-    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Venda da carta, líquido</div><div class="v" id="kCarta">R$ 42.855</div><div class="n" id="kCartaN">Lucro de R$ 19.551 sobre o pago</div></a>
-    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Aplicado no CDB, líquido</div><div class="v" id="kCdb">R$ 27.720</div><div class="n" id="kCdbN">Lucro de R$ 4.417 sobre o pago</div></a>
-    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Taxa equivalente da venda</div><div class="v" id="kTir">44,8% a.a.</div><div class="n" id="kTirN">Líquido, contra 14% a.a. bruto do CDB</div></a>
-  </div></div>
+    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Total pago em parcelas</div><div class="v" id="kPago">R$ 23.228</div><div class="n" id="kPagoN">36 parcelas, o mesmo valor nos dois caminhos</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Venda da carta, líquido</div><div class="v" id="kCarta">R$ 66.459</div><div class="n" id="kCartaN">Lucro de R$ 43.231 sobre o pago</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Aplicado no CDB, líquido</div><div class="v" id="kCdb">R$ 27.443</div><div class="n" id="kCdbN">Lucro de R$ 4.215 sobre o pago</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Taxa equivalente da venda</div><div class="v" id="kTir">83,5% a.a.</div><div class="n" id="kTirN">Líquido, contra 13,44% a.a. bruto do CDB</div></a>
+  </div>
+  <div class="strip"><b>Comparação com o mesmo valor:</b> nos dois caminhos sai do bolso exatamente a mesma parcela, no mesmo mês, por 36 meses (<b id="sParc">R$ 614</b> no 1º ano, corrigida em 5% a cada 12 meses). No consórcio ela vira carta; na renda fixa, cada parcela é aplicada no CDB no mesmo dia. Só muda o destino do dinheiro.</div>
+  </div>
+
+  <section><div class="wrap">
+    <span class="anc" id="condicoes"></span>
+    <div class="sec-head"><div><div class="h-section">Condições do <span>Grupo 41056</span></div><p>Consórcio XP de imóveis, administrado por Embracon · Campanha Black November.</p></div></div>
+    <div class="kpis cond">
+      <div class="kpi" style="--c:var(--gold)"><div class="k">Parcela com redutor</div><div class="v">50%</div><div class="n">de R$&nbsp;511 a R$&nbsp;767 por mês, para cartas de R$&nbsp;200 mil a R$&nbsp;300 mil</div></div>
+      <div class="kpi" style="--c:var(--blue-l)"><div class="k">Taxa de administração</div><div class="v">18%</div><div class="n">0,076% ao mês · fundo de reserva de 3,7%</div></div>
+      <div class="kpi" style="--c:var(--blue-l)"><div class="k">Lance embutido e lance fixo</div><div class="v">30%</div><div class="n">do crédito · o embutido sai da carta, sem desembolso</div></div>
+      <div class="kpi" style="--c:var(--gold)"><div class="k">Prazo do plano</div><div class="v">238 meses</div><div class="n">Correção anual fixa de 5% no aniversário do grupo</div></div>
+    </div>
+    <div class="strip">Bônus de até <b>60 mil pontos Livelo</b>. O valor reduzido pelo redutor de 50% é compensado depois da contemplação ou na metade do prazo do grupo, o que ocorrer primeiro: <b>quem compra a carta assume essa compensação</b> nas parcelas que faltam.</div>
+  </div></section>
 
   <section><div class="wrap">
     <span class="anc" id="simulador"></span>
@@ -526,29 +556,67 @@ td:first-child{white-space:nowrap}
       <div class="win-bar">Simulação · valores hipotéticos</div>
       <div class="sim">
         <div class="sim-in">
+          <div class="fld"><div class="fld-h"><label>Cenário de mercado<small>Ágio pesquisado em 2026 · troque e compare</small></label></div><div class="chips" id="iCen"><button type="button" class="chip" data-v="nc">Sem contemplação</button><button type="button" class="chip" data-v="pess">Pessimista</button><button type="button" class="chip" data-v="base">Base</button><button type="button" class="chip" data-v="otim">Otimista</button><button type="button" class="chip on" data-v="melhor">Melhor cenário de mercado</button></div></div>
           <div class="fld"><div class="fld-h"><label>Valor da carta<small>Tabela do Grupo 41056</small></label><output id="oCred">R$ 240.000</output></div><div class="chips" id="iCred"><button type="button" class="chip" data-v="200000">200 mil</button><button type="button" class="chip" data-v="210000">210 mil</button><button type="button" class="chip" data-v="220000">220 mil</button><button type="button" class="chip" data-v="230000">230 mil</button><button type="button" class="chip on" data-v="240000">240 mil</button><button type="button" class="chip" data-v="260000">260 mil</button><button type="button" class="chip" data-v="270000">270 mil</button><button type="button" class="chip" data-v="280000">280 mil</button><button type="button" class="chip" data-v="290000">290 mil</button><button type="button" class="chip" data-v="300000">300 mil</button></div></div>
-          <div class="fld"><div class="fld-h"><label for="iParc">Parcela mensal no 1º ano<small>Parcela com redutor de 50%</small></label><output id="oParc">R$ 616</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iParc" min="300" max="1500" step="1" style="--p: 26.333333333333332%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
-          <div class="fld"><div class="fld-h"><label for="iCorr">Correção anual da parcela e da carta<small>Aplicada a cada 12 meses</small></label><output id="oCorr">5,0% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCorr" min="0" max="12" step="0.5" style="--p: 41.66666666666667%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
-          <div class="fld"><div class="fld-h"><label>Prazo até a venda<small>Contemplação e venda no fim do prazo</small></label><output id="oPrazo">3 anos</output></div><div class="seg" id="iPrazo"><button type="button" data-v="1" class="">1 ano</button><button type="button" data-v="2" class="">2 anos</button><button type="button" data-v="3" class="on">3 anos</button><button type="button" data-v="4" class="">4 anos</button><button type="button" data-v="5" class="">5 anos</button></div></div>
-          <div class="fld"><div class="fld-h"><label for="iLance">Lance embutido<small>Sai do valor da carta, sem desembolso</small></label><output id="oLance">30%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iLance" min="0" max="30" step="1" style="--p: 100%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
-          <div class="fld"><div class="fld-h"><label for="iAgio">Ágio na venda<small>% da carta sem o lance embutido</small></label><output id="oAgio">25%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iAgio" min="0" max="60" step="1" style="--p: 41.66666666666667%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
-          <div class="fld"><div class="fld-h"><label for="iCdb">CDB, taxa bruta<small>IR pela tabela regressiva, aporte a aporte</small></label><output id="oCdb">14% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCdb" min="6" max="20" step="0.25" style="--p: 57.14285714285714%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
-          <div class="fld"><div class="fld-h"><label>Imposto sobre o lucro da venda<small>Ganho de capital de 15%</small></label></div><div class="seg" id="iIr"><button type="button" data-v="1" class="on">Descontar 15%</button><button type="button" data-v="0" class="">Não descontar</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iParc">Parcela mensal no 1º ano<small>Parcela com redutor de 50%</small></label><output id="oParc">R$ 614</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iParc" min="300" max="1500" step="1" style="--p: 26.166666666666664%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iCorr">Correção anual da parcela e da carta<small>Correção fixa de 5% a.a. pelo contrato do grupo</small></label><output id="oCorr">5,0% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCorr" min="0" max="12" step="0.5" style="--p: 41.66666666666667%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label>Contemplado em até 36 meses?<small>Sem promessa de contemplação: teste os dois casos</small></label><output>36 meses</output></div><div class="seg" id="iCont"><button type="button" data-v="1" class="on">Sim, com lance</button><button type="button" data-v="0" class="">Não contemplado</button></div></div>
+          <div class="fld so-cont"><div class="fld-h"><label for="iLance">Lance embutido<small>Até 30% do crédito (lance fixo do grupo: 30%)</small></label><output id="oLance">30%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iLance" min="0" max="30" step="1" style="--p: 100%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld so-cont"><div class="fld-h"><label for="iAgio">Ágio na venda<small>% da carta sem o lance embutido</small></label><output id="oAgio">40%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iAgio" min="0" max="60" step="1" style="--p: 66.66666666666666%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld so-nc"><div class="fld-h"><label for="iRec">Venda da cota não contemplada<small>% do fundo comum pago que o comprador paga (mercado: 70% a 88%)</small></label><output id="oRec">79%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iRec" min="50" max="95" step="1" style="--p: 64.44444444444444%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iCdb">CDB prefixado, taxa bruta<small>Média do pré de 3 anos: 13,44% a.a. (out/26) · IR regressivo</small></label><output id="oCdb">13,44% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCdb" min="8" max="18" step="0.01" style="--p: 54.39999999999999%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld so-cont"><div class="fld-h"><label>Imposto sobre o lucro da venda<small>Ganho de capital de 15%</small></label></div><div class="seg" id="iIr"><button type="button" data-v="1" class="on">Descontar 15%</button><button type="button" data-v="0" class="">Não descontar</button></div></div>
           <button class="reset" id="reset" type="button">Voltar aos valores iniciais</button>
-        <div class="sim-live" aria-hidden="true"><span>A venda da carta entrega a mais</span><b>R$ 15.134</b></div></div>
+        <div class="sim-live" aria-hidden="true"><span>A venda da carta entrega a mais</span><b>R$ 39.016</b></div></div>
         <div class="sim-out">
-          <div class="res-tot" id="vTot"><div class="k">A venda da carta entrega a mais</div><div class="v">R$ 15.134</div><div class="n">Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>54,6% acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>44,8% ao ano</b>, já líquido.</div></div>
-          <div class="k out-k" style="margin-top:22px">Vender a carta</div>
-          <div class="res" id="rowsCarta"><div class="res-r"><span>Valor da carta no fim do prazo</span><b>R$ 264.600</b></div><div class="res-r"><span>Lance embutido (30%)</span><b class="m">− R$ 79.380</b></div><div class="res-r"><span>Carta sem o lance embutido</span><b>R$ 185.220</b></div><div class="res-r"><span>Recebido na venda (25% da carta)</span><b>R$ 46.305</b></div><div class="res-r"><span>Parcelas pagas</span><b class="m">− R$ 23.303</b></div><div class="res-r"><span>Lucro bruto</span><b>R$ 23.002</b></div><div class="res-r"><span>Imposto sobre o lucro (15%)</span><b class="m">− R$ 3.450</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 19.551</b></div></div>
+          <div class="res-tot" id="vTot"><div class="k">A venda da carta entrega a mais</div><div class="v">R$ 39.016</div><div class="n">Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>142,2% acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>83,5% ao ano</b>, já líquido.</div></div>
+          <div class="k out-k" style="margin-top:22px"><span id="kRowsCarta">Vender a carta contemplada</span></div>
+          <div class="res" id="rowsCarta"><div class="res-r"><span>Valor da carta no fim do prazo</span><b>R$ 264.600</b></div><div class="res-r"><span>Lance embutido (30%)</span><b class="m">− R$ 79.380</b></div><div class="res-r"><span>Carta sem o lance embutido</span><b>R$ 185.220</b></div><div class="res-r"><span>Recebido na venda (ágio de 40%)</span><b>R$ 74.088</b></div><div class="res-r"><span>Parcelas pagas</span><b class="m">− R$ 23.228</b></div><div class="res-r"><span>Lucro bruto</span><b>R$ 50.860</b></div><div class="res-r"><span>Imposto sobre o lucro (15%)</span><b class="m">− R$ 7.629</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 43.231</b></div></div>
           <div class="k out-k">Aplicar no CDB</div>
-          <div class="res" id="rowsCdb"><div class="res-r"><span>Total aplicado</span><b>R$ 23.303</b></div><div class="res-r"><span>Rendimento bruto</span><b>R$ 5.278</b></div><div class="res-r"><span>Saldo bruto no resgate</span><b>R$ 28.582</b></div><div class="res-r"><span>Imposto de renda</span><b class="m">− R$ 861</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 4.417</b></div></div>
+          <div class="res" id="rowsCdb"><div class="res-r"><span>Total aplicado</span><b>R$ 23.228</b></div><div class="res-r"><span>Rendimento bruto</span><b>R$ 5.037</b></div><div class="res-r"><span>Saldo bruto no resgate</span><b>R$ 28.265</b></div><div class="res-r"><span>Imposto de renda</span><b class="m">− R$ 822</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 4.215</b></div></div>
         </div>
       </div>
     </div>
 
     <div class="grid g2 cmp" style="margin-top:16px">
-      <div class="card hi"><div class="k">Vender a carta · consórcio contemplado com lance embutido</div><div class="bignum" id="rCarta">R$ 42.855</div><div class="vn">Recebido na venda, já sem imposto</div><p class="p" id="rCartaP">Lucro líquido de R$ 19.551 sobre R$ 23.303 pagos em parcelas.</p></div>
-      <div class="card"><div class="k">Aplicar no CDB · parcela aplicada todo mês</div><div class="bignum" id="rCdb">R$ 27.720</div><div class="vn">Resgatado no fim do prazo, já sem imposto</div><p class="p" id="rCdbP">Lucro líquido de R$ 4.417 sobre R$ 23.303 aplicados.</p></div>
+      <div class="card hi"><div class="k">Vender a carta · consórcio contemplado com lance embutido</div><div class="bignum" id="rCarta">R$ 66.459</div><div class="vn">Recebido na venda, já sem imposto</div><p class="p" id="rCartaP">Lucro líquido de R$ 43.231 sobre R$ 23.228 pagos em parcelas.</p></div>
+      <div class="card"><div class="k">Aplicar no CDB · parcela aplicada todo mês</div><div class="bignum" id="rCdb">R$ 27.443</div><div class="vn">Resgatado no fim do prazo, já sem imposto</div><p class="p" id="rCdbP">Lucro líquido de R$ 4.215 sobre os mesmos R$ 23.228, aplicados mês a mês.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="cenarios"></span>
+    <div class="sec-head"><div><div class="h-section">Cinco cenários em <span>36 meses</span></div><p>Mesma carta, mesma parcela e mesmo CDB. Só muda o que o mercado paga pela carta, inclusive se ela não for contemplada.</p></div></div>
+    <div class="win"><div class="table-scroll"><table class="cen-t">
+      <thead><tr><th>Cenário</th><th>Premissa</th><th class="r">Venda, líquido</th><th class="r">CDB, líquido</th><th class="r">Diferença</th></tr></thead>
+      <tbody id="tbCen"><tr class="neg"><td>Sem contemplação</td><td>Cota não contemplada vendida a 79% do fundo comum pago (meio da faixa de 70% a 88%)</td><td class="r" data-l="Venda">R$ 15.078</td><td class="r" data-l="CDB">R$ 27.443</td><td class="r d" data-l="Diferença">−R$ 12.365</td></tr><tr class="neg"><td>Pessimista</td><td>Contemplada, ágio de 10% (piso da faixa usual)</td><td class="r" data-l="Venda">R$ 18.522</td><td class="r" data-l="CDB">R$ 27.443</td><td class="r d" data-l="Diferença">−R$ 8.921</td></tr><tr class="pos"><td>Base</td><td>Contemplada, ágio de 22% (citado em operações de 2026)</td><td class="r" data-l="Venda">R$ 38.120</td><td class="r" data-l="CDB">R$ 27.443</td><td class="r d" data-l="Diferença">+R$ 10.678</td></tr><tr class="pos"><td>Otimista</td><td>Contemplada, ágio de 30% (topo da faixa usual)</td><td class="r" data-l="Venda">R$ 50.715</td><td class="r" data-l="CDB">R$ 27.443</td><td class="r d" data-l="Diferença">+R$ 23.273</td></tr><tr class="pos on"><td>Melhor cenário de mercado</td><td>Contemplada, ágio de 40% (topo citado em 2026)</td><td class="r" data-l="Venda">R$ 66.459</td><td class="r" data-l="CDB">R$ 27.443</td><td class="r d" data-l="Diferença">+R$ 39.016</td></tr></tbody>
+    </table></div></div>
+    <p class="foot">Ágio sobre o valor da carta já sem o lance embutido de 30%. Faixa usual de mercado 10% a 30% do valor da carta; 22% citado em operações de 2026; 40% citado como topo, em cotas de alto padrão [6][7][8]. Cota não contemplada: mercado paga de 70% a 88% do fundo comum pago [9].</p>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="direcional"></span>
+    <div class="sec-head"><div><div class="h-section">Direcional de <span>mercado</span></div><p>Por que o momento favorece a carta contemplada, e o que precisa acontecer para ela vencer a renda fixa.</p></div></div>
+    <div class="grid g2 dir">
+      <div class="card hi"><div class="k">A favor do consórcio</div><div class="t">Crédito caro sustenta a procura por carta contemplada</div><ul class="b g">
+        <li>Selic mantida em <b>13,75%</b> pelo Copom em 04/11/2026, e o Focus de 23/11 projeta <b>13,00%</b> no fim de 2027 [1][2].</li>
+        <li>Financiamento imobiliário subiu em novembro: Caixa 11,19%, Itaú 12,95% e Bradesco 15% ao ano de taxa mínima [3].</li>
+        <li>Quem quer comprar imóvel sem pagar esses juros procura carta pronta: as vendas de cotas de imóveis cresceram <b>39,9%</b> de janeiro a agosto de 2026 [4].</li>
+        <li>Parcela com <b>redutor de 50%</b>: até a venda sai do bolso metade da parcela cheia, e a carta vale o crédito inteiro.</li>
+      </ul></div>
+      <div class="card"><div class="k">A régua da renda fixa</div><div class="t">O CDB de 3 anos também paga bem</div><ul class="b">
+        <li>O CDB prefixado de 3 anos pagou em média <b>13,44% ao ano</b> entre 29/09 e 29/10/2026 [5].</li>
+        <li>Com o mesmo dinheiro, a venda da carta empata com o CDB quando o ágio chega a <b id="dEmp">cerca de 15,5%</b> da carta sem o lance embutido. Sem lance embutido, o empate cai para <b id="dEmp20">cerca de 11%</b>.</li>
+        <li>Abaixo disso, a renda fixa entrega mais. Acima, a carta passa à frente.</li>
+      </ul></div>
+      <div class="card"><div class="k">Atenção</div><div class="t">Sem promessa de contemplação nem de ágio</div><ul class="b">
+        <li>A contemplação por lance não tem data garantida. Se a cota não for contemplada em 36 meses, a venda costuma sair abaixo do que foi pago.</li>
+        <li>O ágio é negociado na hora da venda. Se os juros caírem até 2029 (o Focus projeta 11% em 2028 [2]), o financiamento barateia e a procura por carta pode diminuir.</li>
+      </ul></div>
+      <div class="card"><div class="k">Para quem faz mais sentido</div><div class="t">Quem quer usar a carta ou aceita o risco do ágio</div><ul class="b">
+        <li>Para usar o crédito na compra de um imóvel, a comparação muda: o consórcio substitui um financiamento de 11% a 15% ao ano.</li>
+        <li>Para vender a carta em 36 meses, a decisão depende do ágio: vale para quem aceita esse risco em troca do ganho no melhor cenário.</li>
+      </ul></div>
     </div>
   </div></section>
 
@@ -563,7 +631,7 @@ td:first-child{white-space:nowrap}
           <span class="lg"><i style="--c:#7AA5D6"></i>Saldo no CDB, líquido</span>
           <span class="lg"><i class="dot" style="--c:#E3AE3C"></i>Venda da carta, líquido</span>
         </div>
-        <div class="chart" id="chart"><svg viewBox="0 0 1000 380" role="img" aria-label="Evolução do valor acumulado no CDB e na venda da carta"><line class="gl" x1="70" x2="980" y1="344" y2="344"></line><text class="ax" x="60" y="348" text-anchor="end">0</text><line class="gl" x1="70" x2="980" y1="279.2" y2="279.2"></line><text class="ax" x="60" y="283.2" text-anchor="end">10 mil</text><line class="gl" x1="70" x2="980" y1="214.4" y2="214.4"></line><text class="ax" x="60" y="218.4" text-anchor="end">20 mil</text><line class="gl" x1="70" x2="980" y1="149.6" y2="149.6"></line><text class="ax" x="60" y="153.6" text-anchor="end">30 mil</text><line class="gl" x1="70" x2="980" y1="84.79999999999998" y2="84.79999999999998"></line><text class="ax" x="60" y="88.79999999999998" text-anchor="end">40 mil</text><line class="gl" x1="70" x2="980" y1="20" y2="20"></line><text class="ax" x="60" y="24" text-anchor="end">50 mil</text><text class="ax" x="70" y="370" text-anchor="middle">Início</text><text class="ax" x="373.3333333333333" y="370" text-anchor="middle">1º ano</text><text class="ax" x="676.6666666666666" y="370" text-anchor="middle">2º ano</text><text class="ax" x="980" y="370" text-anchor="middle">3º ano</text><path d="M70,344 L95.3,340.0 L120.6,336.0 L145.8,332.0 L171.1,328.0 L196.4,324.0 L221.7,320.0 L246.9,316.1 L272.2,312.1 L297.5,308.1 L322.8,304.1 L348.1,300.1 L373.3,296.1 L398.6,291.9 L423.9,287.7 L449.2,283.5 L474.4,279.3 L499.7,275.1 L525.0,271.0 L550.3,266.8 L575.6,262.6 L600.8,258.4 L626.1,254.2 L651.4,250.0 L676.7,245.8 L701.9,241.4 L727.2,237.0 L752.5,232.6 L777.8,228.2 L803.1,223.8 L828.3,219.4 L853.6,215.0 L878.9,210.6 L904.2,206.2 L929.4,201.8 L954.7,197.4 L980.0,193.0" fill="none" stroke="#5A7AA6" stroke-width="2" stroke-dasharray="6 5"></path><path d="M70,344 L95.3,340.0 L120.6,335.9 L145.8,331.8 L171.1,327.7 L196.4,323.5 L221.7,319.3 L246.9,315.1 L272.2,310.8 L297.5,306.5 L322.8,302.1 L348.1,297.7 L373.3,293.3 L398.6,288.6 L423.9,283.8 L449.2,279.0 L474.4,274.2 L499.7,269.3 L525.0,264.4 L550.3,259.5 L575.6,254.4 L600.8,249.4 L626.1,244.3 L651.4,239.1 L676.7,233.9 L701.9,228.4 L727.2,222.9 L752.5,217.3 L777.8,211.6 L803.1,205.9 L828.3,200.1 L853.6,194.3 L878.9,188.5 L904.2,182.5 L929.4,176.5 L954.7,170.5 L980.0,164.4" fill="none" stroke="#7AA5D6" stroke-width="3" stroke-linejoin="round"></path><line x1="980" x2="980" y1="192.99474560000007" y2="66.30127184000003" stroke="#E3AE3C" stroke-width="2" stroke-dasharray="3 4"></line><circle cx="980" cy="66.30127184000003" r="7" fill="#E3AE3C" stroke="#040A16" stroke-width="2"></circle><text class="an" x="966" y="64.30127184000003" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">Venda da carta R$ 42.855</text><circle cx="980" cy="164.3716788845117" r="5" fill="#7AA5D6"></circle><text class="an" x="966" y="152.3716788845117" text-anchor="end">CDB R$ 27.720</text><line id="hx" x1="0" x2="0" y1="20" y2="344" stroke="#A9C6EA" stroke-opacity=".35" visibility="hidden"></line><rect id="hov" x="70" y="20" width="910" height="324" fill="transparent"></rect></svg><div class="tip" id="tip"></div></div>
+        <div class="chart" id="chart"><svg viewBox="0 0 1000 380" role="img" aria-label="Evolução do valor acumulado no CDB e na venda da carta"><line class="gl" x1="70" x2="980" y1="344" y2="344"></line><text class="ax" x="60" y="348" text-anchor="end">0</text><line class="gl" x1="70" x2="980" y1="303.5" y2="303.5"></line><text class="ax" x="60" y="307.5" text-anchor="end">10 mil</text><line class="gl" x1="70" x2="980" y1="263" y2="263"></line><text class="ax" x="60" y="267" text-anchor="end">20 mil</text><line class="gl" x1="70" x2="980" y1="222.5" y2="222.5"></line><text class="ax" x="60" y="226.5" text-anchor="end">30 mil</text><line class="gl" x1="70" x2="980" y1="182" y2="182"></line><text class="ax" x="60" y="186" text-anchor="end">40 mil</text><line class="gl" x1="70" x2="980" y1="141.5" y2="141.5"></line><text class="ax" x="60" y="145.5" text-anchor="end">50 mil</text><line class="gl" x1="70" x2="980" y1="101" y2="101"></line><text class="ax" x="60" y="105" text-anchor="end">60 mil</text><line class="gl" x1="70" x2="980" y1="60.5" y2="60.5"></line><text class="ax" x="60" y="64.5" text-anchor="end">70 mil</text><line class="gl" x1="70" x2="980" y1="20" y2="20"></line><text class="ax" x="60" y="24" text-anchor="end">80 mil</text><text class="ax" x="70" y="370" text-anchor="middle">Início</text><text class="ax" x="373.3333333333333" y="370" text-anchor="middle">1º ano</text><text class="ax" x="676.6666666666666" y="370" text-anchor="middle">2º ano</text><text class="ax" x="980" y="370" text-anchor="middle">3º ano</text><path d="M70,344 L95.3,341.5 L120.6,339.0 L145.8,336.5 L171.1,334.1 L196.4,331.6 L221.7,329.1 L246.9,326.6 L272.2,324.1 L297.5,321.6 L322.8,319.1 L348.1,316.6 L373.3,314.2 L398.6,311.5 L423.9,308.9 L449.2,306.3 L474.4,303.7 L499.7,301.1 L525.0,298.5 L550.3,295.9 L575.6,293.3 L600.8,290.7 L626.1,288.0 L651.4,285.4 L676.7,282.8 L701.9,280.1 L727.2,277.3 L752.5,274.6 L777.8,271.9 L803.1,269.1 L828.3,266.4 L853.6,263.6 L878.9,260.9 L904.2,258.2 L929.4,255.4 L954.7,252.7 L980.0,249.9" fill="none" stroke="#5A7AA6" stroke-width="2" stroke-dasharray="6 5"></path><path d="M70,344 L95.3,341.5 L120.6,339.0 L145.8,336.4 L171.1,333.8 L196.4,331.3 L221.7,328.6 L246.9,326.0 L272.2,323.3 L297.5,320.7 L322.8,317.9 L348.1,315.2 L373.3,312.5 L398.6,309.5 L423.9,306.6 L449.2,303.6 L474.4,300.7 L499.7,297.6 L525.0,294.6 L550.3,291.5 L575.6,288.4 L600.8,285.3 L626.1,282.1 L651.4,278.9 L676.7,275.7 L701.9,272.3 L727.2,268.9 L752.5,265.4 L777.8,262.0 L803.1,258.4 L828.3,254.9 L853.6,251.3 L878.9,247.7 L904.2,244.0 L929.4,240.3 L954.7,236.6 L980.0,232.9" fill="none" stroke="#7AA5D6" stroke-width="3" stroke-linejoin="round"></path><line x1="980" x2="980" y1="249.9281389999999" y2="74.84128085" stroke="#E3AE3C" stroke-width="2" stroke-dasharray="3 4"></line><circle cx="980" cy="74.84128085" r="7" fill="#E3AE3C" stroke="#040A16" stroke-width="2"></circle><text class="an" x="966" y="72.84128085" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">Venda da carta R$ 66.459</text><circle cx="980" cy="232.8577607783889" r="5" fill="#7AA5D6"></circle><text class="an" x="966" y="220.8577607783889" text-anchor="end">CDB R$ 27.443</text><line id="hx" x1="0" x2="0" y1="20" y2="344" stroke="#A9C6EA" stroke-opacity=".35" visibility="hidden"></line><rect id="hov" x="70" y="20" width="910" height="324" fill="transparent"></rect></svg><div class="tip" id="tip"></div></div>
         <p class="howto"><b>Como ler:</b> as duas linhas sobem juntas com as parcelas. O CDB rende um pouco todo mês; a carta não rende nada até ser vendida, e o ganho todo aparece de uma vez no último mês, no ponto dourado.</p>
       </div>
     </div>
@@ -574,7 +642,7 @@ td:first-child{white-space:nowrap}
     <div class="sec-head"><div><div class="h-section">Parcelas e carta <span>corrigidas</span></div><p>Ano a ano, com a correção aplicada a cada 12 meses.</p></div></div>
     <div class="win"><div class="table-scroll"><table>
       <thead><tr><th>Ano</th><th class="r">Parcela mensal</th><th class="r">Pago no ano</th><th class="r">Pago acumulado</th><th class="r">Valor da carta</th><th class="r">Saldo no CDB, bruto</th></tr></thead>
-      <tbody id="tbAnos"><tr><td>1º ano</td><td class="r">R$ 616,00</td><td class="r">R$ 7.392</td><td class="r">R$ 7.392</td><td class="r">R$ 240.000</td><td class="r">R$ 7.941</td></tr><tr><td>2º ano</td><td class="r">R$ 646,80</td><td class="r">R$ 7.762</td><td class="r">R$ 15.154</td><td class="r">R$ 252.000</td><td class="r">R$ 17.392</td></tr><tr><td>3º ano</td><td class="r">R$ 679,14</td><td class="r">R$ 8.150</td><td class="r">R$ 23.303</td><td class="r">R$ 264.600</td><td class="r">R$ 28.582</td></tr><tr class="on"><td>Total</td><td class="r"></td><td class="r">R$ 23.303</td><td class="r">R$ 23.303</td><td class="r">R$ 264.600</td><td class="r">R$ 28.582</td></tr></tbody>
+      <tbody id="tbAnos"><tr><td>1º ano</td><td class="r">R$ 614,00</td><td class="r">R$ 7.368</td><td class="r">R$ 7.368</td><td class="r">R$ 240.000</td><td class="r">R$ 7.894</td></tr><tr><td>2º ano</td><td class="r">R$ 644,70</td><td class="r">R$ 7.736</td><td class="r">R$ 15.104</td><td class="r">R$ 252.000</td><td class="r">R$ 17.244</td></tr><tr><td>3º ano</td><td class="r">R$ 676,94</td><td class="r">R$ 8.123</td><td class="r">R$ 23.228</td><td class="r">R$ 264.600</td><td class="r">R$ 28.265</td></tr><tr class="on"><td>Total</td><td class="r"></td><td class="r">R$ 23.228</td><td class="r">R$ 23.228</td><td class="r">R$ 264.600</td><td class="r">R$ 28.265</td></tr></tbody>
     </table></div></div>
   </div></section>
 
@@ -582,7 +650,7 @@ td:first-child{white-space:nowrap}
     <span class="anc" id="premissas"></span>
     <div class="sec-head"><div><div class="h-section">O que está por trás <span>da conta</span></div></div></div>
     <div class="grid g3">
-      <div class="card"><div class="k">01 · Consórcio</div><p class="p">O cliente paga a parcela com redutor todo mês, corrigida a cada 12 meses. No fim do prazo é contemplado com lance embutido, que sai do valor da carta, sem dinheiro do bolso.</p></div>
+      <div class="card"><div class="k">01 · Consórcio</div><p class="p">O cliente paga a parcela com redutor de 50% todo mês, corrigida em 5% a cada 12 meses. Em até 36 meses é contemplado com lance embutido, que sai do valor da carta, sem dinheiro do bolso. No fim do prazo é contemplado com lance embutido, que sai do valor da carta, sem dinheiro do bolso.</p></div>
       <div class="card hi"><div class="k">02 · Venda da carta</div><p class="p">A carta contemplada é vendida com ágio sobre o valor dela já sem o lance embutido. O comprador assume as parcelas que faltam. O ganho é o que recebe menos o que pagou.</p></div>
       <div class="card"><div class="k">03 · CDB</div><p class="p">Cada parcela é aplicada no mesmo dia em que seria paga, e tudo é resgatado no fim do prazo. O imposto segue a tabela regressiva conforme o tempo de cada aplicação.</p></div>
     </div>
@@ -594,10 +662,19 @@ td:first-child{white-space:nowrap}
     <div class="sec-head"><div><div class="h-section">De onde veio cada <span>informação</span></div></div></div>
     <div class="card src">
       <ol>
-        <li>Condições do Grupo 41056 (Imóveis), Consórcio XP, administrado por Embracon: tabela de crédito e parcela com redutor de 50%, plano de 238 meses, taxa de administração de 18%, fundo de reserva de 3,7%, lance embutido de até 30% do crédito. Campanha Black November, condição válida até 19/11/2026.</li>
+        <li>Copom mantém Selic em 13,75%, reunião de 04/11/2026. Suno Notícias. <a href="https://www.suno.com.br/noticias/copom-mantem-selic-1375-novembro-2026-go/" target="_blank" rel="noopener">suno.com.br</a></li>
+        <li>Boletim Focus de 23/11/2026: Selic de 13,00% no fim de 2027 e 11% em 2028. XP Conteúdos e InfoMoney, 23/11/2026. <a href="https://conteudos.xpi.com.br/economia/boletim-focus-mercado-projeta-selic-de-1300-ao-fim-de-2027-23-11-2026/" target="_blank" rel="noopener">conteudos.xpi.com.br</a> · <a href="https://www.infomoney.com.br/mercados/boletim-focus-projecoes-23112026/" target="_blank" rel="noopener">infomoney.com.br</a></li>
+        <li>Financiamento imobiliário fica mais caro: Caixa 11,19%, Itaú 12,95%, Bradesco 15% ao ano (SBPE). Gazeta Brasil, 12/11/2026. <a href="https://gazetabrasil.com.br/ultimas-noticias/2026/11/12/financiamento-imobiliario-fica-mais-caro-e-parcelas-sobem-nestes-bancos/" target="_blank" rel="noopener">gazetabrasil.com.br</a></li>
+        <li>Consórcios movimentam R$ 389,6 bilhões; vendas de cotas de imóveis +39,9% de janeiro a agosto de 2026 (dados ABAC). SEGS. <a href="https://www.segs.com.br/seguros/457798-consorcios-movimentam-r-389-6-bilhoes-em-cenario-de-juros-altos" target="_blank" rel="noopener">segs.com.br</a></li>
+        <li>Taxas de CDB: prefixado de 3 anos com média de 13,44% ao ano entre 29/09 e 29/10/2026 (levantamento Quantum Finance). InfoMoney. <a href="https://www.infomoney.com.br/onde-investir/taxas-de-cdb-caem-em-outubro-mas-se-recuperam-com-empurrao-das-eleicoes/" target="_blank" rel="noopener">infomoney.com.br</a></li>
+        <li>Ágio médio de 10% a 30% sobre o valor de face da carta; casos de 40% em imóveis de alto padrão. Renova Invest, 01/07/2026. <a href="https://renovainvest.com.br/blog/consorcio-contemplado-vale-pena/" target="_blank" rel="noopener">renovainvest.com.br</a></li>
+        <li>Ágios na casa dos 22% sobre o valor da carta. André Eleutério, Ligado no Sul, 02/10/2026. <a href="https://www.ligadonosul.com.br/colunistas/consorcio-de-investimento-quando-a-carta-contemplada-se-transforma-em-uma-estrategia-de-geracao-de-patrimonio-por-andre-eleuterio/" target="_blank" rel="noopener">ligadonosul.com.br</a></li>
+        <li>Ágio em torno de 40% do crédito (estimativa). Consórcios em Alta, atualizado em 20/05/2026. <a href="https://altaconsorcios.com.br/carta-contemplada-em-2026-vale-a-pena-comprar-agora/" target="_blank" rel="noopener">altaconsorcios.com.br</a></li>
+        <li>Cota não contemplada: o mercado paga de 70% a 88% do fundo comum pago (deságio de 12% a 30%). Caracini Consórcios, atualizado em 10/06/2026. <a href="https://www.venderconsorcios.com.br/desagio-consorcio" target="_blank" rel="noopener">venderconsorcios.com.br</a></li>
+        <li>Lâmina da Campanha Black November, Grupo 41056 (Imóveis), Consórcio XP, administrado por Embracon: plano de 238 meses, grupo em andamento, taxa de administração de 18% com parcela com redutor de 50% (15% na parcela integral; 0,076% ao mês), fundo de reserva de 3,7%, valor reduzido compensado após a contemplação ou na metade do prazo do grupo, correção anual fixa de 5%, lance embutido de até 30% do crédito e lance fixo de 30%, bônus de até 60 mil pontos Livelo. Tabela de crédito e parcela com redutor da mesma lâmina. Condições vigentes em 23/11/2026.</li>
         <li>IR do CDB pela tabela regressiva (22,5% até 180 dias, 20% até 360, 17,5% até 720 e 15% acima): Lei 11.033/2004, art. 1º. <a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11.033.htm" target="_blank" rel="noopener">planalto.gov.br</a></li>
         <li>Lucro na venda da carta tributado como ganho de capital, alíquota de 15% até R$ 5 milhões de ganho: Lei 13.259/2016, art. 1º. <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13259.htm" target="_blank" rel="noopener">planalto.gov.br</a></li>
-        <li>Correção anual, ágio, prazo e taxa do CDB: valores hipotéticos da simulação, ajustáveis no simulador.</li>
+        <li>Valor da carta, ágio dentro de cada cenário e contemplação em 36 meses: premissas da simulação, ajustáveis no simulador. Fundo comum = parcela sem a taxa de administração (18%) e o fundo de reserva (3,7%).</li>
       </ol>
     </div>
   </div></section>
@@ -610,21 +687,30 @@ td:first-child{white-space:nowrap}
 </div></div>
 
 <script>
-/* ═══ DADOS ═══ */
-const TABELA = [ // Grupo 41056 — Imóveis · crédito e parcela com redutor de 50%
+/* ═══ DADOS · Grupo 41056 — Imóveis · Campanha Black November ═══ */
+const TABELA = [ // crédito e parcela com redutor de 50%
   [200000, 511], [210000, 537], [220000, 562], [230000, 588], [240000, 614],
   [260000, 665], [270000, 690], [280000, 716], [290000, 741], [300000, 767]
 ];
-const INICIAL = { cred: 240000, parc: 616, corr: 5, prazo: 3, lance: 30, agio: 25, cdb: 14, ir: true };
-const IR_GCAP = 0.15;
+const TAXA_ADM = 0.18, FUNDO_RES = 0.037, IR_GCAP = 0.15, PRAZO = 3; // 36 meses
+const FC = 1 / (1 + TAXA_ADM + FUNDO_RES); // parte da parcela que vai para o fundo comum
+// cenários de ágio pesquisados (sobre a carta sem o lance embutido) — ver fontes
+const CENARIOS = [
+  { id: 'nc',   nome: 'Sem contemplação', prem: 'Cota não contemplada vendida a 79% do fundo comum pago (meio da faixa de 70% a 88%)', cont: false, rec: 79 },
+  { id: 'pess', nome: 'Pessimista',       prem: 'Contemplada, ágio de 10% (piso da faixa usual)', cont: true, agio: 10 },
+  { id: 'base', nome: 'Base',             prem: 'Contemplada, ágio de 22% (citado em operações de 2026)', cont: true, agio: 22 },
+  { id: 'otim', nome: 'Otimista',         prem: 'Contemplada, ágio de 30% (topo da faixa usual)', cont: true, agio: 30 },
+  { id: 'melhor', nome: 'Melhor cenário de mercado', prem: 'Contemplada, ágio de 40% (topo citado em 2026)', cont: true, agio: 40 },
+];
+const INICIAL = { cen: 'melhor', cred: 240000, parc: 614, corr: 5, lance: 30, agio: 40, rec: 79, cont: true, cdb: 13.44, ir: true };
 
 /* ═══ FORMATOS ═══ */
 const el = id => document.getElementById(id);
 const NB = ' ';
 const num = (v, d = 0) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
-const brl = (v, d = 0) => 'R$' + NB + num(v, d);
-const pct = (v, d = 1) => num(v, d) + '%';
-const pctCdb = v => { v = Math.round(v * 10000) / 100; return pct(v, Number.isInteger(v) ? 0 : 2); };
+const brl = (v, d = 0) => (v < -0.5 ? '−' : '') + 'R$' + NB + num(Math.abs(v), d);
+const pct = (v, d = 1) => (v < 0 ? '−' : '') + num(Math.abs(v), d) + '%';
+const pctCdb = v => { v = Math.round(v * 100) / 100; return pct(v, Number.isInteger(v) ? 0 : 2); };
 const aliqIR = dias => dias <= 180 ? .225 : dias <= 360 ? .20 : dias <= 720 ? .175 : .15;
 const MENOS = '−' + NB;
 
@@ -634,34 +720,39 @@ function txt(id, t) { const e = el(id); if (e && e.textContent !== t) e.textCont
 function fill(r) { const p = (r.value - r.min) / (r.max - r.min) * 100; r.style.setProperty('--p', p + '%'); }
 function porQuadro(cb) { let pend = false; return () => { if (pend) return; pend = true; requestAnimationFrame(() => { pend = false; cb(); }); }; }
 const run = porQuadro(render);
+const RANGES = { iParc: 'parc', iCorr: 'corr', iLance: 'lance', iAgio: 'agio', iRec: 'rec', iCdb: 'cdb' };
+const BSTEP = { iParc: 10, iCorr: 0.5, iLance: 1, iAgio: 1, iRec: 1, iCdb: 0.25 };
 
-function chips() {
-  el('iCred').innerHTML = TABELA.map(([c]) => `<button type="button" class="chip${c === S.cred ? ' on' : ''}" data-v="${c}">${c / 1000} mil</button>`).join('');
-}
-function segs() {
-  el('iPrazo').innerHTML = [1, 2, 3, 4, 5].map(a => `<button type="button" data-v="${a}" class="${a === S.prazo ? 'on' : ''}">${a} ${a === 1 ? 'ano' : 'anos'}</button>`).join('');
+function botoes() {
+  el('iCen').innerHTML = CENARIOS.map(c => `<button type="button" class="chip${c.id === S.cen ? ' on' : ''}" data-v="${c.id}">${c.nome}</button>`).join('');
+  el('iCred').innerHTML = TABELA.map(([c]) => `<button type="button" class="chip${c === S.cred ? ' on' : ''}" data-v="${c}">${num(c / 1000)} mil</button>`).join('');
+  el('iCont').innerHTML = `<button type="button" data-v="1" class="${S.cont ? 'on' : ''}">Sim, com lance</button><button type="button" data-v="0" class="${S.cont ? '' : 'on'}">Não contemplado</button>`;
   el('iIr').innerHTML = `<button type="button" data-v="1" class="${S.ir ? 'on' : ''}">Descontar 15%</button><button type="button" data-v="0" class="${S.ir ? '' : 'on'}">Não descontar</button>`;
+  document.querySelector('.sim').classList.toggle('nc', !S.cont);
 }
-const RANGES = { iParc: 'parc', iCorr: 'corr', iLance: 'lance', iAgio: 'agio', iCdb: 'cdb' };
-const BSTEP = { iParc: 10, iCorr: 0.5, iLance: 1, iAgio: 1, iCdb: 0.25 };
-function carregar() {
-  Object.entries(RANGES).forEach(([id, k]) => { const r = el(id); r.value = S[k]; fill(r); });
-  chips(); segs();
-}
+function carregar() { Object.entries(RANGES).forEach(([id, k]) => { const r = el(id); r.value = S[k]; fill(r); }); botoes(); }
 function setRange(r, v) { const mn = +r.min, mx = +r.max, st = +r.step || 1; v = Math.min(mx, Math.max(mn, Math.round((v - mn) / st) * st + mn)); v = +v.toFixed(4); if (+r.value === v) return; r.value = v; r.dispatchEvent(new Event('input')); }
+// mexer em ágio, lance, venda ou contemplação tira o destaque do cenário pronto
+function semCenario() { if (!S.cen) return; S.cen = ''; el('iCen').querySelectorAll('button').forEach(x => x.classList.remove('on')); }
 
+el('iCen').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const c = CENARIOS.find(x => x.id === b.dataset.v);
+  S.cen = c.id; S.cont = c.cont; if (c.agio != null) S.agio = c.agio; if (c.rec != null) S.rec = c.rec; S.lance = 30;
+  carregar(); render();
+});
 el('iCred').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   S.cred = +b.dataset.v; const row = TABELA.find(t => t[0] === S.cred); if (row) { S.parc = row[1]; el('iParc').value = S.parc; fill(el('iParc')); }
   el('iCred').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render();
 });
-el('iPrazo').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.prazo = +b.dataset.v; el('iPrazo').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render(); });
+el('iCont').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.cont = b.dataset.v === '1'; semCenario(); botoes(); render(); });
 el('iIr').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.ir = b.dataset.v === '1'; el('iIr').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render(); });
 el('reset').addEventListener('click', () => { Object.assign(S, INICIAL); carregar(); render(); });
 
 Object.entries(RANGES).forEach(([id, k]) => {
   const r = el(id);
-  r.addEventListener('input', () => { S[k] = +r.value; fill(r); run(); });
+  r.addEventListener('input', () => { S[k] = +r.value; fill(r); if (['agio', 'lance', 'rec'].includes(k)) semCenario(); run(); });
   let box = r.parentElement;
   if (!box.classList.contains('rng')) {
     box = document.createElement('div'); box.className = 'rng'; r.parentNode.insertBefore(box, r);
@@ -682,17 +773,18 @@ Object.entries(RANGES).forEach(([id, k]) => {
 /* ═══ MOTOR ═══ */
 function calcular(s) {
   const corr = s.corr / 100, lance = s.lance / 100, agio = s.agio / 100, cdb = s.cdb / 100;
-  const N = s.prazo * 12, im = Math.pow(1 + cdb, 1 / 12) - 1;
+  const N = PRAZO * 12, im = Math.pow(1 + cdb, 1 / 12) - 1;
   const parcelas = [];
   for (let k = 0; k < N; k++) parcelas.push(s.parc * Math.pow(1 + corr, Math.floor(k / 12)));
   const pago = parcelas.reduce((a, b) => a + b, 0);
 
   // carta: corrigida junto com a parcela até o último aniversário antes da venda
-  const carta = s.cred * Math.pow(1 + corr, s.prazo - 1);
-  const embutido = carta * lance, liquida = carta - embutido;
-  const recebe = liquida * agio;
+  const carta = s.cred * Math.pow(1 + corr, PRAZO - 1);
+  let embutido = 0, liquida = carta, recebe, fundo = pago * FC;
+  if (s.cont) { embutido = carta * lance; liquida = carta - embutido; recebe = liquida * agio; }
+  else recebe = fundo * s.rec / 100;
   const ganho = recebe - pago;
-  const irCarta = s.ir && ganho > 0 ? ganho * IR_GCAP : 0;
+  const irCarta = s.cont && s.ir && ganho > 0 ? ganho * IR_GCAP : 0;
   const cartaLiq = recebe - irCarta;
 
   // CDB: aporte no início do mês k, resgate no fim do mês N
@@ -708,14 +800,22 @@ function calcular(s) {
   }
   const bruto = serie[N - 1].cdbB, cdbLiq = serie[N - 1].cdbL, ir = bruto - cdbLiq;
 
-  // taxa equivalente da venda: taxa mensal que leva as parcelas pagas ao valor líquido recebido
+  // taxa equivalente: taxa mensal que leva as parcelas pagas ao valor líquido recebido
   const vf = i => parcelas.reduce((a, p, k) => a + p * Math.pow(1 + i, N - k), 0) - cartaLiq;
   let tir = null;
   if (cartaLiq > 0) {
     let lo = -0.99, hi = 1;
     if (vf(lo) < 0 && vf(hi) > 0) { for (let j = 0; j < 200; j++) { const mid = (lo + hi) / 2; vf(mid) > 0 ? hi = mid : lo = mid; } tir = Math.pow(1 + (lo + hi) / 2, 12) - 1; }
   }
-  return { N, parcelas, pago, carta, embutido, liquida, recebe, ganho, irCarta, cartaLiq, bruto, ir, cdbLiq, serie, tir, s };
+  return { N, parcelas, pago, carta, embutido, liquida, recebe, fundo, ganho, irCarta, cartaLiq, bruto, ir, cdbLiq, serie, tir, s };
+}
+// ágio que empata a venda com o CDB, para a carta e parcela escolhidas
+function empate(s, lance) {
+  let lo = 0, hi = 200;
+  const dif = a => { const R = calcular(Object.assign({}, s, { cont: true, agio: a, lance })); return R.cartaLiq - R.cdbLiq; };
+  if (dif(hi) < 0) return null;
+  for (let j = 0; j < 60; j++) { const m = (lo + hi) / 2; dif(m) >= 0 ? hi = m : lo = m; }
+  return hi;
 }
 
 const rr = (k, v, cls = '', sub = '') => `<div class="res-r${cls === 'tot' ? ' tot' : ''}"><span>${k}${sub ? `<small>${sub}</small>` : ''}</span><b${cls === 'm' ? ' class="m"' : ''}>${v}</b></div>`;
@@ -730,36 +830,45 @@ function live(k, v) {
 
 function render() {
   const s = S, R = calcular(s);
-  const anos = s.prazo === 1 ? '1 ano' : s.prazo + ' anos';
+  const cen = CENARIOS.find(c => c.id === s.cen);
   txt('oCred', brl(s.cred)); txt('oParc', brl(s.parc)); txt('oCorr', pct(s.corr) + NB + 'a.a.');
-  txt('oPrazo', anos); txt('oLance', pct(s.lance, 0)); txt('oAgio', pct(s.agio, 0)); txt('oCdb', pctCdb(s.cdb / 100) + NB + 'a.a.');
+  txt('oLance', pct(s.lance, 0)); txt('oAgio', pct(s.agio, 0)); txt('oRec', pct(s.rec, 0)); txt('oCdb', pctCdb(s.cdb) + NB + 'a.a.');
 
-  txt('hPrazo', anos); txt('hCdb', pctCdb(s.cdb / 100) + ' ao ano');
+  txt('hParc', brl(s.parc)); txt('sParc', brl(s.parc)); txt('hCdb', pctCdb(s.cdb) + ' ao ano');
   const dif = R.cartaLiq - R.cdbLiq, difPct = R.cdbLiq > 0 ? dif / R.cdbLiq * 100 : 0, venceCarta = dif >= 0;
-  txt('hLbl', venceCarta ? 'A mais com a venda da carta' : 'A mais com o CDB');
+  const nomeVenda = s.cont ? 'a venda da carta' : 'a venda da cota';
+  txt('hCen', cen ? cen.nome : 'Cenário ajustado');
+  txt('hLbl', venceCarta ? (s.cont ? 'A mais com a venda da carta' : 'A mais com a venda da cota') : 'A mais com o CDB');
   txt('hBig', brl(Math.abs(dif)));
-  txt('hNote', `Carta de ${brl(s.cred)}, parcelas de ${brl(s.parc)} por mês no 1º ano, venda em ${anos}. Resultado líquido de imposto.`);
+  txt('hNote', `Carta de ${brl(s.cred)}, ${brl(s.parc)} por mês no 1º ano, 36 meses. ` + (s.cont ? `Ágio de ${pct(s.agio, 0)}, lance embutido de ${pct(s.lance, 0)}.` : 'Cota não contemplada.') + ' Líquido de imposto.');
 
-  txt('kPago', brl(R.pago)); txt('kPagoN', `${R.N} parcelas, igual nos dois caminhos`);
-  txt('kCarta', brl(R.cartaLiq)); txt('kCartaN', `Lucro de ${brl(R.cartaLiq - R.pago)} sobre o pago`);
+  txt('kPago', brl(R.pago)); txt('kPagoN', `${R.N} parcelas, o mesmo valor nos dois caminhos`);
+  txt('kCarta', brl(R.cartaLiq)); txt('kCartaN', (R.cartaLiq >= R.pago ? 'Lucro de ' : 'Perda de ') + brl(Math.abs(R.cartaLiq - R.pago)) + ' sobre o pago');
   txt('kCdb', brl(R.cdbLiq)); txt('kCdbN', `Lucro de ${brl(R.cdbLiq - R.pago)} sobre o pago`);
-  txt('kTir', R.tir === null ? '—' : pct(R.tir * 100) + NB + 'a.a.'); txt('kTirN', `Líquido, contra ${pctCdb(s.cdb / 100)} a.a. bruto do CDB`);
+  txt('kTir', R.tir === null ? '—' : pct(R.tir * 100) + NB + 'a.a.'); txt('kTirN', `Líquido, contra ${pctCdb(s.cdb)} a.a. bruto do CDB`);
 
-  const vk = venceCarta ? 'A venda da carta entrega a mais' : 'O CDB entrega a mais', vv = brl(Math.abs(dif));
+  const vk = venceCarta ? (s.cont ? 'A venda da carta entrega a mais' : 'A venda da cota entrega a mais') : 'O CDB entrega a mais', vv = brl(Math.abs(dif));
   put('vTot', `<div class="k">${vk}</div><div class="v">${vv}</div><div class="n">` + (venceCarta
-    ? `Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>${pct(Math.abs(difPct))} acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>${R.tir === null ? '—' : pct(R.tir * 100)} ao ano</b>, já líquido.`
-    : `Nestes valores, aplicar as parcelas no CDB termina <b>${pct(Math.abs(difPct))} acima</b> da venda da carta.`) + '</div>');
+    ? `Com o mesmo dinheiro saindo do bolso todo mês, ${nomeVenda} termina <b>${pct(Math.abs(difPct))} acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>${R.tir === null ? '—' : pct(R.tir * 100)} ao ano</b>, já líquido.`
+    : `Com o mesmo dinheiro saindo do bolso todo mês, aplicar no CDB termina <b>${pct(Math.abs(difPct))} acima</b> d${s.cont ? 'a venda da carta' : 'a venda da cota'} nestes valores.`) + '</div>');
   live(vk, vv);
 
-  put('rowsCarta',
+  txt('kRowsCarta', s.cont ? 'Vender a carta contemplada' : 'Vender a cota não contemplada');
+  put('rowsCarta', s.cont ? (
     rr('Valor da carta no fim do prazo', brl(R.carta)) +
     rr(`Lance embutido (${pct(s.lance, 0)})`, MENOS + brl(R.embutido), 'm') +
     rr('Carta sem o lance embutido', brl(R.liquida)) +
-    rr(`Recebido na venda (${pct(s.agio, 0)} da carta)`, brl(R.recebe)) +
+    rr(`Recebido na venda (ágio de ${pct(s.agio, 0)})`, brl(R.recebe)) +
     rr('Parcelas pagas', MENOS + brl(R.pago), 'm') +
     rr('Lucro bruto', brl(R.ganho)) +
     (s.ir ? rr('Imposto sobre o lucro (15%)', MENOS + brl(R.irCarta), 'm') : '') +
-    rr('Lucro líquido', brl(R.ganho - R.irCarta), 'tot'));
+    rr('Lucro líquido', brl(R.ganho - R.irCarta), 'tot')
+  ) : (
+    rr('Parcelas pagas', brl(R.pago)) +
+    rr('Fundo comum pago', brl(R.fundo), '', 'parcelas sem taxa de administração e fundo de reserva') +
+    rr(`Recebido na venda (${pct(s.rec, 0)} do fundo comum)`, brl(R.recebe)) +
+    rr('Resultado', brl(R.ganho), 'tot')
+  ));
   put('rowsCdb',
     rr('Total aplicado', brl(R.pago)) +
     rr('Rendimento bruto', brl(R.bruto - R.pago)) +
@@ -768,12 +877,22 @@ function render() {
     rr('Lucro líquido', brl(R.cdbLiq - R.pago), 'tot'));
 
   txt('rCarta', brl(R.cartaLiq));
-  txt('rCartaP', `Lucro líquido de ${brl(R.ganho - R.irCarta)} sobre ${brl(R.pago)} pagos em parcelas.`);
+  txt('rCartaP', (R.cartaLiq >= R.pago ? 'Lucro líquido de ' : 'Perda de ') + `${brl(Math.abs(R.cartaLiq - R.pago))} sobre ${brl(R.pago)} pagos em parcelas.`);
   txt('rCdb', brl(R.cdbLiq));
-  txt('rCdbP', `Lucro líquido de ${brl(R.cdbLiq - R.pago)} sobre ${brl(R.pago)} aplicados.`);
+  txt('rCdbP', `Lucro líquido de ${brl(R.cdbLiq - R.pago)} sobre os mesmos ${brl(R.pago)}, aplicados mês a mês.`);
+
+  // cinco cenários com a carta, a parcela, a correção e o CDB escolhidos
+  put('tbCen', CENARIOS.map(c => {
+    const X = calcular(Object.assign({}, s, { cont: c.cont, agio: c.agio != null ? c.agio : s.agio, rec: c.rec != null ? c.rec : s.rec, lance: 30, ir: true }));
+    const d = X.cartaLiq - X.cdbLiq;
+    return `<tr class="${d >= 0 ? 'pos' : 'neg'}${c.id === s.cen ? ' on' : ''}"><td>${c.nome}</td><td>${c.prem}</td><td class="r" data-l="Venda">${brl(X.cartaLiq)}</td><td class="r" data-l="CDB">${brl(X.cdbLiq)}</td><td class="r d" data-l="Diferença">${d >= 0 ? '+' : ''}${brl(d)}</td></tr>`;
+  }).join(''));
+  const e30 = empate(s, 30), e0 = empate(s, 0);
+  txt('dEmp', e30 === null ? '—' : 'cerca de ' + pct(Math.ceil(e30 * 2) / 2, 1).replace(',0%', '%'));
+  txt('dEmp20', e0 === null ? '—' : 'cerca de ' + pct(Math.ceil(e0 * 2) / 2, 1).replace(',0%', '%'));
 
   let html = '', acum = 0;
-  for (let a = 0; a < s.prazo; a++) {
+  for (let a = 0; a < PRAZO; a++) {
     const p = R.parcelas[a * 12], noAno = p * 12; acum += noAno;
     html += `<tr><td>${a + 1}º ano</td><td class="r">${brl(p, 2)}</td><td class="r">${brl(noAno)}</td><td class="r">${brl(acum)}</td><td class="r">${brl(s.cred * Math.pow(1 + s.corr / 100, a))}</td><td class="r">${brl(R.serie[a * 12 + 11].cdbB)}</td></tr>`;
   }
@@ -799,14 +918,14 @@ function desenhar(R) {
     g += `<line class="gl" x1="${L}" x2="${W - Rr}" y1="${y(v)}" y2="${y(v)}"/>`;
     g += `<text class="ax" x="${L - 10}" y="${y(v) + 4}" text-anchor="end">${v === 0 ? '0' : num(v / 1000) + ' mil'}</text>`;
   }
-  for (let a = 0; a <= R.s.prazo; a++) g += `<text class="ax" x="${x(a * 12)}" y="${H - 10}" text-anchor="middle">${a === 0 ? 'Início' : a + 'º ano'}</text>`;
+  for (let a = 0; a <= PRAZO; a++) g += `<text class="ax" x="${x(a * 12)}" y="${H - 10}" text-anchor="middle">${a === 0 ? 'Início' : a + 'º ano'}</text>`;
   const path = key => 'M' + x(0) + ',' + y(0) + ' ' + Sr.map(p => 'L' + x(p.m).toFixed(1) + ',' + y(p[key]).toFixed(1)).join(' ');
   g += `<path d="${path('pago')}" fill="none" stroke="#5A7AA6" stroke-width="2" stroke-dasharray="6 5"/>`;
   g += `<path d="${path('cdbL')}" fill="none" stroke="#7AA5D6" stroke-width="3" stroke-linejoin="round"/>`;
   const xe = x(N), yc = y(R.cartaLiq), yp = y(Sr[N - 1].pago), yd = y(Sr[N - 1].cdbL);
   g += `<line x1="${xe}" x2="${xe}" y1="${yp}" y2="${yc}" stroke="#E3AE3C" stroke-width="2" stroke-dasharray="3 4"/>`;
   g += `<circle cx="${xe}" cy="${yc}" r="7" fill="#E3AE3C" stroke="#040A16" stroke-width="2"/>`;
-  g += `<text class="an" x="${xe - 14}" y="${yc - 2}" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">Venda da carta ${brl(R.cartaLiq)}</text>`;
+  g += `<text class="an" x="${xe - 14}" y="${yc - 2}" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">${R.s.cont ? 'Venda da carta' : 'Venda da cota'} ${brl(R.cartaLiq)}</text>`;
   g += `<circle cx="${xe}" cy="${yd}" r="5" fill="#7AA5D6"/>`;
   const ydT = Math.abs(yd - yc) < 22 ? yd + 20 : yd - 12;
   g += `<text class="an" x="${xe - 14}" y="${ydT}" text-anchor="end">CDB ${brl(Sr[N - 1].cdbL)}</text>`;
@@ -821,7 +940,7 @@ function desenhar(R) {
     const m = Math.min(N, Math.max(1, Math.round((sx - L) / (W - L - Rr) * N))), p = Sr[m - 1];
     hx.setAttribute('x1', x(m)); hx.setAttribute('x2', x(m)); hx.setAttribute('visibility', 'visible');
     tip.innerHTML = `<b>Mês ${m}</b><div class="r"><span>Total pago</span><span>${brl(p.pago)}</span></div><div class="r"><span>CDB líquido</span><span>${brl(p.cdbL)}</span></div>` +
-      (m === N ? `<div class="r"><span>Venda da carta</span><span>${brl(R.cartaLiq)}</span></div>` : `<div class="r"><span>Carta</span><span>sem venda ainda</span></div>`);
+      (m === N ? `<div class="r"><span>${R.s.cont ? 'Venda da carta' : 'Venda da cota'}</span><span>${brl(R.cartaLiq)}</span></div>` : `<div class="r"><span>Carta</span><span>sem venda ainda</span></div>`);
     const px = x(m) * rc.width / W, tw = tip.offsetWidth || 200;
     tip.style.left = Math.min(Math.max(px - tw / 2, 0), rc.width - tw) + 'px'; tip.style.top = '6px'; tip.style.opacity = 1;
   };
