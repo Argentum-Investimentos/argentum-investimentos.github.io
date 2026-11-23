@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="nojs"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script>document.documentElement.classList.remove("nojs")</script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Research Argentum">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Consórcio × CDB · Venda da carta contemplada">
+<meta property="og:description" content="Simulador: a mesma parcela paga no consórcio para vender a carta com ágio, ou aplicada todo mês num CDB. Research Argentum · XP Investimentos.">
+<meta property="og:url" content="https://argentum-investimentos.github.io/consorcio/">
+<meta name="description" content="Simulador: a mesma parcela paga no consórcio para vender a carta com ágio, ou aplicada todo mês num CDB. Research Argentum · XP Investimentos.">
+<title>Consórcio × CDB · Research Argentum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap">
+<style>
+/* ==========================================================================
+   PADRÃO NOITE PRIVATE · Argentum · Gabriel Holanda  (aprovado em 11/11/2026)
+   Para materiais INTERATIVOS e de COMUNIDADE (link no navegador / celular).
+   Relatórios em PDF de clientes continuam no Padrão Vidro (argentum.css).
+
+   Fontes (colocar no <head>):
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
+   Títulos: Cormorant Garamond, CAIXA ALTA espaçada · Texto e números: Hanken Grotesk
+   (algarismos alinhados). Nada de Fraunces, Instrument Serif, Inter Tight ou mono.
+   Ganho = dourado · perda = azul forte · nunca verde/vermelho.
+
+   Estrutura de referência (menu, capa, KPIs, simuladores, check-up, fontes):
+     04_Mercado/Materiais/Tributario_2027/2026-11_Tributario_2027_Interativo.html
+   Embutir este CSS no <style> do HTML final (arquivo único).
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06122A; --card:#0F2445; --card-b:#22406A; --card-bar:#132B52; --hi:#15407F; --hi-b:#3A78C2;
+  --blue:#2F6DB5; --blue-l:#7AA5D6; --blue-xl:#A9C6EA; --gold:#E3AE3C; --gold-d:#C9921A;
+  --ink:#FFFFFF; --text:#D9E4F3; --muted:#8FA6C4; --faint:#6F88AA; --hair:#2A4670; --row:#1B3457;
+  --serif:'New York','NewYork',ui-serif,'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Inter,'Segoe UI',Roboto,Arial,sans-serif;
+  --display:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Inter,'Segoe UI',Roboto,Arial,sans-serif;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;background:#020A16}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;letter-spacing:-.01em;min-height:100vh}
+.bgfix{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;z-index:0;pointer-events:none;background:var(--bg) none center/cover no-repeat}
+.wm{position:fixed;right:-90px;bottom:-70px;width:min(900px,90vw);height:auto;pointer-events:none;z-index:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;position:relative;z-index:1}
+b,strong{color:#fff;font-weight:600}
+.gold{color:var(--gold)}
+.page{display:none;position:relative;z-index:1}
+.anc{display:block;position:relative;top:-60px;height:0}
+.nojs .page{display:block;animation:none!important}
+.nojs .back{display:none}
+.nojs .page+.page{border-top:1px solid #1E3760;margin-top:40px}
+.page.active{display:block;animation:sobe .35s ease}
+@keyframes sobe{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.num,td,.v,.big{font-variant-numeric:tabular-nums}
+
+/* ── Barra de menu (macOS sóbrio) ── */
+.menubar{position:sticky;top:0;z-index:50;background:rgba(10,26,54,.94);-webkit-backdrop-filter:saturate(160%) blur(14px);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid #1E3760}
+.mb-in{max-width:1180px;margin:0 auto;padding:0 32px;height:46px;display:flex;align-items:center;gap:16px;font-family:var(--display);font-size:13.5px;color:#C9D6EA}
+.mb-in img{height:22px;cursor:pointer;display:block}
+.mb-in .app{font-weight:700;color:#fff;white-space:nowrap}
+.mb-in .sep{width:1px;height:16px;background:#2C4A76;flex-shrink:0}
+.topnav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.topnav::-webkit-scrollbar{display:none}
+.topnav a{text-decoration:none;flex-shrink:0;font:500 13.5px var(--display);color:#AFC0D8;background:none;border:0;border-radius:7px;padding:5px 11px;cursor:pointer;transition:background .15s,color .15s}
+.topnav a:hover{color:#fff;background:#132B52}
+.topnav a.on{background:#173560;color:#fff;font-weight:600}
+.mb-r{display:flex;gap:14px;align-items:center;color:#8FA6C4;white-space:nowrap;font-size:12.5px}
+
+/* ── Tipografia ── */
+.eye{font-family:var(--display);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-l);font-weight:600}
+h1,h2,.h-section{font-family:var(--serif);font-weight:500;color:var(--ink);text-transform:uppercase;letter-spacing:.01em}
+h1 span,h2 span,.h-section span{color:var(--blue-l)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:68px 0 22px;flex-wrap:wrap}
+.h-section{font-size:26px;line-height:1.18}
+.h-section::before{content:'';display:block;width:34px;height:2px;background:var(--gold);margin-bottom:14px}
+.sec-head p{font-size:14.5px;color:var(--muted);max-width:640px;margin-top:8px}
+
+/* ── Capa ── */
+.hero{padding:72px 0 120px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:end}
+.hero h1{font-size:clamp(40px,5.6vw,64px);line-height:1.04;margin:16px 0 18px}
+.hero-sub{font-size:16.5px;color:var(--text);max-width:600px}
+.hero-fig{background:rgba(21,64,127,.55);border:1px solid var(--hi-b);border-radius:20px;padding:28px 30px;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.hero-fig .lbl{font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gold)}
+.hero-fig .big{font-family:var(--display);font-size:clamp(40px,4.4vw,56px);font-weight:700;letter-spacing:-.035em;line-height:1;margin:12px 0 10px;color:var(--gold)}
+.hero-fig .note{font-size:14px;color:var(--text);line-height:1.5;border-top:1px solid rgba(255,255,255,.16);padding-top:12px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;gap:10px}
+.kv .k{font-size:12px;color:var(--muted);line-height:1.3}
+.kv .v{font-family:var(--display);font-size:19px;font-weight:700;color:#fff;margin-top:2px}
+
+/* ── KPIs ── */
+.kpis-wrap{margin-top:-70px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{text-decoration:none;position:relative;display:flex;flex-direction:column;text-align:left;background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 22px 18px;cursor:pointer;font-family:inherit;color:inherit;overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s;box-shadow:0 22px 44px -28px rgba(0,0,0,.7)}
+.kpi::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--c,var(--blue))}
+.kpi:hover{transform:translateY(-3px);border-color:var(--hi-b)}
+.kpi .k{font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--blue-l)}
+.kpi .v{font-family:var(--display);font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:10px 0 6px;color:var(--gold)}
+.kpi .n{font-size:14px;color:var(--text);line-height:1.45;flex:1}
+.kpi .a{font-family:var(--display);font-size:13px;font-weight:600;color:var(--blue-l);margin-top:14px}
+
+/* ── Cartões ── */
+.card{background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 24px;position:relative}
+.card.hi{background:var(--hi);border-color:var(--hi-b)}
+.k{font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--blue-l);margin-bottom:8px}
+.card.hi .k,.k.g{color:var(--gold)}
+.t{font-family:var(--display);font-size:17.5px;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.35;margin-bottom:8px}
+.p{font-size:15.5px;line-height:1.6;color:var(--text)}
+.bignum{font-family:var(--display);color:var(--gold);font-size:42px;line-height:1;font-weight:700;letter-spacing:-.03em;margin:4px 0 12px}
+ul.b{list-style:none}
+ul.b li{position:relative;padding-left:20px;font-size:15.5px;line-height:1.5;margin-bottom:9px;color:var(--text)}
+ul.b li:last-child{margin-bottom:0}
+ul.b li::before{content:'';position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--blue-l)}
+.card.hi ul.b li::before,ul.b.g li::before{background:var(--gold)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.g2>*,.g3>*,.g4>*{min-width:0}
+
+/* ── Notificação ── */
+.strip{position:relative;background:#12294D;border:1px solid #2C4C7C;border-radius:16px;padding:14px 20px 14px 62px;font-size:15px;color:var(--text);line-height:1.55;margin-top:16px}
+.strip::before{content:'';position:absolute;left:20px;top:16px;width:26px;height:26px;border:1.5px solid var(--gold);border-radius:50%;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='7.2' r='1.5' fill='%23E3AE3C'/%3E%3Cpath d='M12 11v7' stroke='%23E3AE3C' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center/18px no-repeat}
+.foot{font-size:12.5px;color:var(--faint);line-height:1.7;margin-top:14px;max-width:960px}
+.foot a{color:var(--blue-l)}
+
+/* ── Cabeçalho das páginas internas ── */
+.phead{padding:44px 0 8px}
+.phead .wrap{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.back{font:500 13.5px var(--display);color:var(--muted);background:none;border:0;cursor:pointer;padding:0;margin-bottom:20px}
+.back:hover{color:#fff}
+.phead h2{font-size:clamp(30px,4vw,44px);line-height:1.1;margin-top:10px}
+.phead p{font-size:16px;color:var(--text);margin-top:12px;max-width:720px}
+.ph-stat{min-width:270px;padding:22px 26px;border-radius:18px;background:var(--hi);border:1px solid var(--hi-b)}
+.ph-stat .k{color:var(--gold)}
+.ph-stat .v{font-family:var(--display);font-size:40px;font-weight:700;letter-spacing:-.035em;line-height:1.05;margin:6px 0;color:#fff;white-space:nowrap}
+.ph-stat .n{font-size:13.5px;color:var(--text)}
+.first{margin-top:36px}
+
+/* ── Controle segmentado ── */
+.seg{display:inline-flex;background:#0E2244;border:1px solid #2A4A78;border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{font:600 13px var(--display);color:#AFC0D8;background:none;border:0;border-radius:8px;padding:7px 13px;cursor:pointer}
+.seg button:hover{color:#fff}
+.seg button.on{background:#1D4F91;color:#fff}
+
+/* ── Painel / janela ── */
+.win{background:var(--card);border:1px solid var(--card-b);border-radius:18px;overflow:hidden}
+.win-bar{height:36px;background:var(--card-bar);border-bottom:1px solid var(--card-b);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:12px;letter-spacing:.02em;color:#9FB3CF;font-weight:600;padding:0 14px;text-align:center}
+.win-body{padding:24px 26px}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-family:var(--display);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-l);text-align:left;padding:12px 16px;border-bottom:1px solid var(--hair);font-weight:700;white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--row);color:var(--text);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:0}
+td:first-child{color:#fff;font-weight:600}
+td.r,th.r{text-align:right}
+tr.on td{background:#173E78}
+tr.on td:first-child{color:var(--gold)}
+tr.click{cursor:pointer}
+tr.click:hover td{background:#132B52}
+
+/* ── Simuladores ── */
+.sim{display:grid;grid-template-columns:1fr 1.05fr;gap:0}
+.sim-in{padding:24px 26px;border-right:1px solid var(--card-b)}
+.sim-out{padding:24px 26px;background:rgba(21,64,127,.28)}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font:600 12.5px var(--display);color:#C9D6EA;background:#0E2244;border:1px solid #2A4A78;border-radius:999px;padding:6px 13px;cursor:pointer}
+.chip:hover{border-color:var(--hi-b);color:#fff}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#0A1A36}
+.fld{margin-bottom:18px}
+.fld:last-child{margin-bottom:0}
+.fld-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px}
+.fld-h label{font-size:14px;font-weight:600;color:#fff}
+.fld-h label small{display:block;font-size:12.5px;color:var(--muted);font-weight:500}
+.fld-h output{font-family:var(--display);font-size:17px;font-weight:700;color:var(--gold);white-space:nowrap}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue) var(--p,0%),#1B3457 var(--p,0%));outline:none;cursor:pointer}
+.rng{display:grid;grid-template-columns:38px 1fr 38px;gap:12px;align-items:center}
+.rb{width:38px;height:38px;border-radius:50%;border:1px solid #2A4A78;background:#0E2244;color:#fff;font:600 20px/1 var(--display);cursor:pointer;display:grid;place-items:center;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.rb:hover{border-color:var(--hi-b)}
+.rb:active{background:var(--gold);border-color:var(--gold);color:#0A1A36}
+input[type=range]{touch-action:none;height:28px;background-clip:content-box;padding:11px 0}
+button,a{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--gold)}
+.res{display:flex;flex-direction:column}
+.res-r{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--row);font-size:14.5px}
+.res-r span{color:var(--text)}
+.res-r span small{display:block;font-size:12.5px;color:var(--muted)}
+.res-r b{font-family:var(--display);white-space:nowrap}
+.res-tot{margin-top:14px;padding:18px 20px;border-radius:14px;background:var(--hi);border:1px solid var(--hi-b)}
+.res-tot .k{color:var(--gold);margin-bottom:4px}
+.res-tot .v{font-family:var(--display);font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1.1;color:#fff}
+.res-tot .n{font-size:14px;color:var(--text);margin-top:6px;line-height:1.5}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--display)}
+.chart .ax{font-size:11.5px;fill:#8FA6C4}
+.chart .gl{stroke:#1B3457}
+.chart .an{font-size:12.5px;font-weight:700;fill:#fff}
+.howto{font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.6}
+.howto b{color:#fff}
+
+/* ── Linha do tempo ── */
+.tempos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tp{border-radius:18px;padding:24px 24px 20px;background:var(--card);border:1px solid var(--card-b)}
+.tp.now{background:var(--hi);border-color:var(--hi-b)}
+.tp .yr{font-family:var(--display);font-weight:700;font-size:34px;color:#fff;letter-spacing:-.02em;margin-bottom:8px}
+.tp.now .yr{color:var(--gold)}
+.tp li{font-size:14.5px;line-height:1.55;color:var(--text);padding:10px 0;border-top:1px solid rgba(255,255,255,.1);list-style:none}
+
+/* ── Entra × fica fora ── */
+.io{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.io-c{border-radius:18px;padding:22px 24px}
+.io-c.in{background:var(--hi);border:1px solid var(--hi-b)}
+.io-c.out{background:var(--card);border:1px solid var(--card-b)}
+.io-c h4{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.io-c.in h4{color:var(--gold)} .io-c.out h4{color:var(--blue-l)}
+.io-i{width:100%;text-align:left;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;font:inherit;color:inherit;background:none;border:0;border-top:1px solid rgba(255,255,255,.1);padding:11px 0;cursor:pointer}
+.io-i:first-of-type{border-top:0}
+.io-i .nm{font-size:15px;color:#fff;font-weight:600}
+.io-i .ar{color:var(--muted);font-size:13px}
+.io-d{display:none;font-size:14px;color:var(--text);line-height:1.55;padding:0 0 12px}
+.io-d.open{display:block;animation:sobe .25s ease}
+
+/* ── Escolha por item (PF×PJ, ITCMD, perfis) ── */
+.pick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.pk{text-align:left;font-family:inherit;color:inherit;background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:18px 20px;cursor:pointer;display:flex;flex-direction:column;transition:border-color .15s,transform .15s}
+.pk:hover{transform:translateY(-2px);border-color:var(--hi-b)}
+.pk.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(227,174,60,.18)}
+.pk .k{margin-bottom:4px}
+.pk .t{margin:0 0 4px;font-size:16.5px}
+.pk .d{font-size:13.5px;color:var(--muted);line-height:1.5;flex:1}
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:18px;overflow:hidden;border:1px solid var(--card-b);margin-top:14px;animation:sobe .25s ease}
+.duel>div{padding:22px 24px;background:var(--card)}
+.duel>div+div{background:var(--hi);border-left:1px solid var(--hi-b)}
+.duel .k{margin-bottom:6px}
+.duel>div+div .k{color:var(--gold)}
+.duel .t{font-size:19px}
+
+/* ── Abas internas (perfil) ── */
+.cl-r{display:grid;grid-template-columns:230px 1fr 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--row)}
+.cl-r:last-child{border-bottom:0}
+
+/* ── Atalhos que acabaram ── */
+.lst{display:flex;flex-direction:column}
+.lst-r{display:grid;grid-template-columns:1fr 1.25fr 120px;gap:18px;align-items:start;padding:14px 0;border-bottom:1px solid var(--row);cursor:pointer}
+.lst-r:last-child{border-bottom:0}
+.lst-r .a{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(143,166,196,.5);font-size:15px}
+.lst-r .b{color:var(--text);font-size:15px}
+.lst-r .b b{color:#fff}
+.lst-r .y{text-align:right;font-family:var(--display);font-weight:700;color:var(--gold);font-size:14px}
+.lst-h{display:grid;grid-template-columns:1fr 1.25fr 120px;gap:18px;padding-bottom:8px;border-bottom:1px solid var(--hair)}
+.lst-h span{font-family:var(--display);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-l);font-weight:700}
+.lst-h span:last-child{text-align:right}
+
+/* ── Detalhes numerados ── */
+.eight{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ei{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:18px 20px}
+.ei .n{font-family:var(--display);font-size:26px;font-weight:700;color:var(--gold);letter-spacing:-.02em}
+.ei p{font-size:14.5px;line-height:1.5;color:var(--text);margin-top:6px}
+
+/* ── Checklist ── */
+.chk{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ck{text-align:left;font-family:inherit;color:inherit;background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:18px 20px;cursor:pointer;position:relative;transition:background .15s,border-color .15s}
+.ck:hover{border-color:var(--hi-b)}
+.ck .n{font-family:var(--display);font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--gold)}
+.ck .t{margin:4px 0 4px;font-size:16px}
+.ck .d{font-size:13.5px;color:var(--muted);line-height:1.5}
+.ck .box{position:absolute;right:16px;top:16px;width:22px;height:22px;border-radius:7px;border:1.5px solid #3B5A86}
+.ck.done{background:#12305C;border-color:var(--hi-b)}
+.ck.done .box{background:var(--gold);border-color:var(--gold)}
+.ck.done .box::after{content:'';position:absolute;left:6px;top:2px;width:6px;height:11px;border:solid #0A1A36;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.prog{display:flex;align-items:center;gap:14px;font-size:13.5px;color:var(--muted)}
+.prog .tr{width:180px;height:6px;background:#1B3457;border-radius:3px;overflow:hidden}
+.prog .tr span{display:block;height:100%;background:var(--gold);transition:width .25s}
+
+/* ── Navegação ── */
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.next{text-decoration:none;display:flex;flex-direction:column;text-align:left;background:var(--card);border:1px solid var(--card-b);border-radius:18px;padding:22px 24px;cursor:pointer;font-family:inherit;color:inherit;transition:border-color .18s,transform .18s}
+.next:hover{border-color:var(--hi-b);transform:translateY(-2px)}
+.next .nn{font-family:var(--display);font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--gold)}
+.next .t{font-size:18px;margin:4px 0 4px}
+.next .d{font-size:14px;color:var(--muted);margin-bottom:14px;flex:1}
+.next .a{font-family:var(--display);font-size:13px;font-weight:600;color:var(--blue-l)}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.intro p{font-size:16.5px;line-height:1.75;color:var(--text)}
+.intro p+p{margin-top:14px}
+.quote{position:relative;padding:4px 0 4px 24px;font-family:var(--serif);font-size:22px;line-height:1.5;color:#fff}
+.quote::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:var(--gold)}
+
+/* ── Fontes ── */
+#abcT th{white-space:normal;min-width:120px}
+.src ol{padding-left:28px}
+.src li{font-size:13.5px;line-height:1.5;color:var(--text);margin-bottom:8px;word-break:break-word}
+.src li::marker{color:var(--gold);font-weight:700}
+.src li a{color:var(--blue-l);text-decoration:none}
+.src li a:hover{text-decoration:underline}
+.src h4{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:4px 0 12px}
+
+/* ── Rodapé ── */
+.footer{border-top:1px solid #1E3760;margin-top:96px;padding:28px 0 44px;position:relative;z-index:1;background:rgba(6,18,42,.7)}
+.footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:12.5px;color:var(--faint)}
+.footer .legal{display:block;margin-top:10px;line-height:1.6}
+
+/* ── Responsivo ── */
+.mb-r{display:none}
+@media (max-width:1000px){
+  .kpis,.pick,.eight,.chk{grid-template-columns:repeat(2,1fr)}
+  .cl-r{grid-template-columns:180px 1fr 1fr}
+}
+@media (max-width:860px){
+  .hero-grid,.intro,.g2,.g3,.io,.sim,.duel,.tempos,.next-grid{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+  .phead .wrap{grid-template-columns:1fr}
+  .ph-stat{min-width:0}
+  .sim-in{border-right:0;border-bottom:1px solid var(--card-b)}
+  .duel>div+div{border-left:0;border-top:1px solid var(--hi-b)}
+  .cl-r{grid-template-columns:1fr;gap:8px}
+  .lst-h{display:none}
+  .lst-r{grid-template-columns:1fr auto;row-gap:4px}
+  .lst-r .b{grid-column:1/-1;grid-row:2}
+}
+@media (max-width:560px){
+  body{font-size:15px}
+  .wrap,.mb-in{padding-left:16px;padding-right:16px}
+  .mb-in .app,.mb-in .sep{display:none}
+  .mb-in img{height:19px}
+  .hero{padding:44px 0 100px}
+  .hero-fig{padding:22px}
+  .kpis,.pick,.eight,.chk,.g4{grid-template-columns:1fr}
+  .kpi .v{font-size:28px}
+  .card,.win-body,.sim-in,.sim-out{padding:18px 16px}
+  .h-section{font-size:21px}
+  .sec-head{margin-top:52px}
+  .ph-stat .v{font-size:32px}
+  .res-tot .v{font-size:30px}
+  .bignum{font-size:34px}
+  th,td{padding:10px 10px;font-size:13.5px}
+  .quote{font-size:19px}
+}
+@media print{
+  .menubar{position:static}
+  .page{display:block!important;page-break-after:always}
+}
+/* desempenho no celular: fundo fixo em camada própria, números com largura fixa, sem desfoque em tela de toque */
+.bgfix,.wm{transform:translateZ(0);backface-visibility:hidden}
+.fld-h output,.res-r b,.res-tot .v,.res-tot .n b{font-variant-numeric:tabular-nums}
+/* check-up tributário */
+.cq{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start}
+.cq-qs{display:grid;gap:10px}
+.cq-q{background:var(--card);border:1px solid var(--card-b);border-radius:16px;padding:16px 18px}
+.cq-q.ok{border-color:var(--hi-b);background:#11294F}
+.cq-q .h{display:flex;gap:10px;align-items:baseline}
+.cq-q .n{font:700 12px var(--display);letter-spacing:.12em;color:var(--gold)}
+.cq-q .t{font:600 16px var(--display);color:#fff}
+.cq-q p{font-size:14px;color:var(--muted);margin:4px 0 12px;line-height:1.5}
+.cq .ops{display:flex;flex-wrap:wrap;gap:8px}
+.cq .chip{font-size:13px;padding:8px 14px;touch-action:manipulation}
+.cq-side{position:sticky;top:76px;display:grid;gap:12px}
+.cq-term{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:12px 0 6px}
+.cq-term i{height:10px;border-radius:3px;background:#1B3457}
+.cq-term i.l2{background:var(--gold)} .cq-term i.l1{background:var(--blue-l)} .cq-term i.l0{background:#3B5A86}
+.cq-sum{font:700 22px/1.25 var(--display);color:#fff;margin-top:4px}
+.cq-sum small{display:block;font:500 13.5px var(--sans);color:var(--muted);margin-top:4px}
+.cq-r{display:grid;grid-template-columns:12px 1fr;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--row)}
+.cq-r:last-child{border-bottom:0}
+.cq-r .d{width:10px;height:10px;border-radius:50%;margin-top:6px;background:#3B5A86}
+.cq-r.l2 .d{background:var(--gold)} .cq-r.l1 .d{background:var(--blue-l)}
+.cq-r .tt{font:600 14.5px var(--display);color:#fff}
+.cq-r .tt a{color:inherit;text-decoration:none}
+.cq-r .tg{font:700 10.5px var(--display);letter-spacing:.12em;text-transform:uppercase;margin-left:6px;color:var(--muted)}
+.cq-r.l2 .tg{color:var(--gold)} .cq-r.l1 .tg{color:var(--blue-l)}
+.cq-r p{grid-column:2;font-size:13.5px;color:var(--text);line-height:1.5;margin:0}
+.cq-in{width:100%;box-sizing:border-box;background:#0E2244;border:1px solid #2A4A78;border-radius:10px;padding:10px 12px;color:#fff;font:400 16px var(--sans);margin:6px 0 12px}
+.cq-in:focus{outline:none;border-color:var(--gold)}
+.cq-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.cq-b{display:inline-flex;align-items:center;gap:8px;font:700 14px var(--display);border-radius:12px;padding:12px 18px;cursor:pointer;text-decoration:none;border:1px solid var(--gold);touch-action:manipulation}
+.cq-b.g{background:var(--gold);color:#0A1A36}
+.cq-b.o{background:transparent;color:#fff;border-color:#2A4A78}
+.cq-b[aria-disabled=true]{opacity:.45;pointer-events:none}
+.cq-note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+@media (max-width:860px){.cq{grid-template-columns:1fr}.cq-side{position:static}}
+@media print{.cq-btns,.cq-in{display:none}}
+.sim-live{display:none}
+@media (max-width:860px){
+  .sim-live{display:flex;justify-content:space-between;align-items:baseline;gap:12px;position:sticky;bottom:10px;z-index:5;margin:18px -6px 0;padding:12px 16px;border-radius:14px;background:#173E78;border:1px solid var(--gold)}
+  .sim-live span{font:600 11.5px var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .sim-live b{font:700 21px var(--display);font-variant-numeric:tabular-nums;white-space:nowrap;color:#fff}
+}
+@media print{.sim-live{display:none!important}}
+@media (hover:none),(max-width:860px){
+  .menubar{-webkit-backdrop-filter:none;backdrop-filter:none;background:#0A1A36}
+  .hero-fig{-webkit-backdrop-filter:none;backdrop-filter:none;background:#122F5C}
+}
+/* ═══ VISUAL NOITE PRIVATE (aprovado em 11/11/2026: Cormorant Garamond + Hanken Grotesk) ═══ */
+:root{--bg:#040A16;--card:#0A1529;--card-b:#16294A;--card-bar:#0C1A31;--hi:#0F2850;--hi-b:#2B5C9C;
+  --row:#14264A;--hair:#1E3560;--text:#C9D6EA;--muted:#7E93B3;
+  --serif:'Instrument Serif','New York',ui-serif,Georgia,serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --display:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif}
+html,body{background:var(--bg)}
+.bgfix{background:radial-gradient(1100px 620px at 78% -8%,#143566 0%,#081530 38%,#040A16 72%)!important}
+.wm{fill-opacity:.035}
+.menubar{background:#040A16!important;border-bottom:1px solid #12223F}
+h1,h2,.h-section{text-transform:none;font-weight:400;letter-spacing:-.01em}
+h1 span,h2 span,.h-section span{font-style:italic;color:#E3AE3C}
+.hero h1{font-size:clamp(52px,7.6vw,96px);line-height:.96}
+.h-section{font-size:40px;line-height:1.05}
+.h-section::before{width:22px;height:1px}
+.phead h2{font-size:clamp(38px,5vw,58px)}
+.card,.kpi,.win,.tp,.io-c,.pk,.ei,.next,.ph-stat,.res-tot,.cq-q,.duel,.strip{border-radius:22px}
+.hero-fig{border-radius:26px;background:#0B1C38;border-color:#1E3A66;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.kpi::before{display:none}
+.kpi .k{color:var(--c,#7AA5D6)}
+.kpi .v,.bignum,.ph-stat .v,.res-tot .v,.hero-fig .big,.tp .yr{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.kpi .v{font-size:44px} .res-tot .v{font-size:48px} .ph-stat .v{font-size:52px}
+.win-bar{background:transparent;border-bottom-color:var(--row);letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+.sim-out{background:#081631}
+.chip,.seg button,.cq-b{border-radius:999px}
+.chip{background:transparent;border-color:#22406A}
+.seg{border-radius:999px;background:transparent}
+.rb{background:transparent}
+.footer{background:#030812}
+@media (max-width:560px){.h-section{font-size:30px}.kpi .v{font-size:36px}.res-tot .v{font-size:38px}.ph-stat .v{font-size:40px}}
+
+:root{--serif:'Cormorant Garamond','Garamond','EB Garamond','Iowan Old Style',Georgia,serif;
+  --sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --display:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Helvetica Neue','Segoe UI',Roboto,Arial,sans-serif;
+  --mono:var(--display)}
+body{letter-spacing:0;font-feature-settings:'lnum','tnum'}
+h1,h2,.h-section{font-family:var(--serif)!important;text-transform:uppercase!important;font-weight:600!important;letter-spacing:.035em!important;font-style:normal}
+h1 span,h2 span,.h-section span{font-style:normal!important}
+.hero h1{font-size:clamp(38px,5.4vw,68px)!important;line-height:1.04!important}
+.h-section{font-size:clamp(24px,2.6vw,32px)!important;line-height:1.12!important}
+.phead h2{font-size:clamp(28px,3.8vw,46px)!important}
+.quote{font-family:var(--serif);font-style:italic;font-size:25px}
+/* números: grotesca, alinhados, sem serifa de estilo antigo */
+.kpi .v,.bignum,.ph-stat .v,.res-tot .v,.hero-fig .big,.tp .yr,.ei .n,.cq-sum,.fld-h output,.res-r b,.kv .v,td.r,.sim-live b,.lst-r .y{
+  font-family:var(--display)!important;font-weight:600!important;letter-spacing:-.025em!important;font-variant-numeric:lining-nums tabular-nums}
+/* rótulos pequenos: caixa alta espaçada, sem fonte de terminal */
+.k,.kpi .k,.eye,th,.lst-h span,.win-bar,.cq-q .n,.next .nn{font-family:var(--display)!important;letter-spacing:.16em!important;font-weight:600}
+.t,.cq-q .t,.cq-r .tt,.next .t,.pk .t{font-family:var(--display);font-weight:600;letter-spacing:-.005em}
+@media (max-width:560px){.h-section{font-size:22px!important}.hero h1{font-size:34px!important}}
+
+/* marca d'água sem rolagem lateral no celular */
+html{overflow-x:hidden;overflow-x:clip}
+@media (max-width:560px){.wm{right:-30px;width:110vw;max-width:none}}
+
+/* ═══ Consórcio × CDB ═══ */
+.page{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .chip{padding:8px 13px;font-size:13px}
+.fld .seg{margin-top:2px}
+.fld .seg button{padding:8px 15px}
+#iPrazo{display:grid;grid-template-columns:repeat(5,1fr);width:100%}
+#iPrazo button{padding:8px 4px;white-space:nowrap}
+td:first-child{white-space:nowrap}
+.hero-sub b{white-space:nowrap}
+.res-r b.m{color:var(--muted)}
+.res-r.tot{border-bottom:0;padding-top:14px}
+.res-r.tot span{color:#fff;font-weight:600}
+.res-r.tot b{color:var(--gold);font-size:17px}
+.out-k{margin:22px 0 2px}
+.out-k:first-child{margin-top:0}
+.cmp .card .bignum{font-size:40px}
+.cmp .card .vn{font-size:13.5px;color:var(--muted);margin:-4px 0 10px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+.lg{display:inline-flex;align-items:center;gap:8px;font:600 12.5px var(--display);color:var(--muted);white-space:nowrap}
+.lg i{width:16px;height:3px;border-radius:2px;background:var(--c);display:inline-block}
+.lg i.dash{height:0;border-top:2px dashed var(--c);background:none}
+.lg i.dot{width:11px;height:11px;border-radius:50%}
+.chart{position:relative}
+.tip{position:absolute;pointer-events:none;background:#0F2850;border:1px solid #2B5C9C;color:#fff;border-radius:12px;padding:10px 12px;font:500 12.5px/1.55 var(--display);opacity:0;transition:opacity .12s;white-space:nowrap;z-index:2}
+.tip .r{display:flex;justify-content:space-between;gap:16px}
+.tip .r span:last-child{font-variant-numeric:tabular-nums;color:var(--gold)}
+.reset{font:600 13px var(--display);color:var(--blue-l);background:none;border:0;cursor:pointer;padding:0;margin-top:18px}
+.reset:hover{color:#fff}
+.sim-out .res-tot{margin-top:0}
+.nojs .rb,.nojs .reset{display:none}
+@media (max-width:560px){.cmp .card .bignum{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="bgfix"></div>
+<noscript><div style="position:relative;z-index:99;margin:16px;padding:18px 20px;border-radius:14px;background:#15407F;border:1px solid #3A78C2;color:#fff;font:16px/1.5 -apple-system,Segoe UI,Roboto,Arial,sans-serif">Você está na versão de leitura, com os valores iniciais da simulação. Para mexer nos números, abra o link no navegador (Chrome, Safari ou Edge).</div></noscript>
+<svg class="wm" viewBox="170 152 305 219" fill="#8DB4E2" fill-opacity=".075" aria-hidden="true"><path d="M269.9 152H322.1L377.4 262.6L333.2 278.7L287.5 187.2L195.6 371H174.4L262.9 194C268.9 182 270.4 170 269.9 152Z"></path><path d="M443.95 168H472.05L269.05 371H240.95Z"></path><path d="M391 152H475V234L455 254V172H371Z"></path><path d="M389.5 286L431.6 371H377.9C369.9 350 369.9 320 389.5 286Z"></path></svg>
+
+<div class="menubar"><div class="mb-in">
+  <a href="#topo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXkAAACLCAYAAACELumbAAAHRklEQVR4nO3dgW7jNhREUdHI//8yC3RRNO06m0h6FGfm3QMUi0XjhJLIG65iO2POeQAAMr12DwAAsA6RB4BgRB4AghF5AAhG5AEgGJEHgGBEHgCCEXkACPZx9KTwCrBx6FA4Hy7ncApev5TriQVzq2Pkp9A4FEKhcj4cqJ4r1XGh5nre6kTHyOMXwpCB65hv3ok99+R7LlDCkIHr2Mu88qCOkVe4RbJzoRKGDFzHnubZB3SMPHJ0DV3X48aF60/key1a4uCPa4hTiHyfMBAHIMeP1zOR17EqwsQ9B9cSpxH5bEQBaL6+iXxulAk8ACIfisAD+BuR10Og8Q7zApcQ+TzEAEDryDtE0GGMAAxa0THy6dTetgHARrwLpa47b0X8dOj5lwcgqttOnhgBaKVb5FGPb5yAsE6Rd4yR45gBCOkUeeR9E+KHzMA3ukR+d4wSx646LgANI+9OLahq4wHQOPIEqRbnEzDSIfIpFOKqMAYAJ6RHnijV4VwChtIjn2ZXaAk8YCo58oSpBucRMJYc+VRPRpfAA+ZSIz+LX3DT8UU3BB4IkBr5KqNpgGfT8wrESYz8qkB1CROBB4LwfvJf6xijlYHveD6B7dJ28p12odXHSuCBQGmRr9ItSjsC3+0cA1skRf6pZ4OMsGNmBw8ES4p8lU5hIvBAuJTIP/2c7hFw7AQeaCAl8t3jdDbYBB5oIiHyu16Z6RozAg80khD5Ku6B+km8CTzQjHvkd7+/ilPYCDzQkHvkq6RE6quQE3igKefI797Fu0SOwAONOUe+Slqo5qc/CTzQnGvkVXbxqsHr9B4+AAIjX4VY+Z4zlXEA0hwjr7aL7xSdDscIRHGMfBWC5Xu+lMYCSHOLvOouPj0+SselNBZAnlvkqxAKz3OlNBbAglPk1XfxiSFSOhalsQA2nCLvFIuEICkdg9JYACsukXfZxadQiqrSWAA7LpF3DIZrnJTGrTQWwJJD5NnF94yq0lgAWw6Rd46GU6iUxqo0FsCaeuTZxfeLqtJYAHvqkU8Ih3q0lManNBYggnLk2cXnR3V8+nP3WIBIypGvQjy0z4vKOIBIqpFP28WrhUxtPACaRb4KMfsd5wRo5BW8i1eLmcJ4FMYAoHnkk/EsHwCtI592L14FgQea+jgyEbV/cS6gMq+myHjmhcfYbm6VIp96L/7d+J76F4v6uUAvq+b+MF8X439/n8m3a1BHbSIDK+Zl4jwflcelEnnuxddKnPjQMgXmZ/o8HxXHqBL5KukX/Sc4B+gQ+k7zfNx5cFrkHSj98Onzf4BL6O9Eb5rO+eEc+S4/cFULPOAY+ruBd14HwzHyBF4n8G4THv1CXxl4V8Mt8l2oBx5QDz2Bvygh8uq7eJXA/0TrxQCJ0L+b0wT+6/MxlF8MlXjylQM/T3yc+jdOaLs7h4bB+pvf/P/Va2g4vuL1CuUYOQYeqLJ7s7Bqzs/ijxupt2vSo6MU+CvSrw+eMZsG/ozlT+d0vievuotXCzzBxk5Pzz/X+T6TIu96ERwDf0fydULmXHKfszMh8snPi1cMvPukR47Vc5G5Hni7Roli4CuwcFCJ+bThHD0Z+dRdvGrgWVBQtOqHl/gCO/nMwFdiAUF5TjE/RSKfuIvvEHgA5tjJZwa+enzslgBTTpFX2d2qBx5QVznPWTMCkU/aBXYOfNJ1xD6j4dqJjnzSvXiXwBNjqFq5jhUaIXkcTrdrdnIJ/Gp8A4HyPHdaS4+Nf2XkU3bxBB7wmeeua2qs+sTs5P+MwP+O3TzU5/mqrznMPu/S95NP2MUTeMB3ng/xDcl46gu5/9KQVVwD/+S7/fGNCn+iMD/GgjWhcFyn1uGK2zXuu3jXwAMqRtEv0qj4hRrjyPTPefn2/HBP/r8IPLD3TfXerUHl2y47nDof1ZF33sUT+HNYeHC5FTmOxtjJ/0Lggf23aCo+Jn0dzp2Rd93FE/jr2M3jqcBf+di09Xjp2Lvv5Ak84BP4O495N16nNXr5mF+Nd3QEvu+1h2/gq8Y9Dh8z6XnyT514Ag/sNYsen7zeZsUneTW8F0/g67Gb70fl9w8nzr1ZeVxqO/nVCDyQt/7cX4E9V37yj0a7eAK/lvtCg/cOunI846Gv84guz64h8ADusgv83ci7HDCBf47LnADarGmFnbzqS6EdJ4PimAAX4wj0Ct6xdQu8Coe54Yg5t9Y4PG15q2GFE0vg9yL0cDKOYK/ABUzgAUBgJ78imAReh/pmAGixrl9BC5fA+40V53BtcXo+vEImK4HXpLwpAFp4Bby6lcCjE+YkTs2D3c+uuYvA64+d3Xz29YX49X8Z7+IJPDpjjvY0zj7AdSdP4L2Og918/jV2NI4G430ZnlACD/j+liNnY+PXvfy1XXfyKyQulMRjwnvEPs+ouKZjzrlyB6365mMshmdvoSSd7+7vm18xb0b4ORmHkDORBwCY4XYNAAQj8gAQjMgDQDAiDwDBiDwABCPyABCMyAPAkesvvPZJLjtJv3wAAAAASUVORK5CYII=" alt="Argentum | XP"></a>
+  <span class="app">Consórcio × CDB</span><span class="sep"></span>
+  <nav class="topnav"><a href="#simulador">Simulador</a><a href="#mes">Mês a mês</a><a href="#ano">Ano a ano</a><a href="#premissas">Premissas</a><a href="#fontes">Fontes</a></nav>
+</div></div>
+
+<div class="page" id="topo">
+  <section class="hero"><div class="wrap"><div class="hero-grid">
+    <div>
+      <div class="eye">Research Argentum · Consórcio de imóveis · Grupo 41056</div>
+      <h1>Venda da carta <span>× CDB.</span></h1>
+      <p class="hero-sub">O mesmo valor de parcela, por <b id="hPrazo">3 anos</b>: pago no consórcio para vender a carta contemplada com ágio, ou aplicado todo mês num CDB de <b id="hCdb">14% ao ano</b>.</p>
+    </div>
+    <div class="hero-fig">
+      <div class="lbl" id="hLbl">A mais com a venda da carta</div>
+      <div class="big" id="hBig">R$ 15.134</div>
+      <div class="note" id="hNote">Carta de R$ 240.000, parcelas de R$ 616 por mês no 1º ano, venda em 3 anos. Resultado líquido de imposto.</div>
+    </div>
+  </div></div></section>
+
+  <div class="wrap kpis-wrap"><div class="kpis">
+    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Total pago em parcelas</div><div class="v" id="kPago">R$ 23.303</div><div class="n" id="kPagoN">36 parcelas, igual nos dois caminhos</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Venda da carta, líquido</div><div class="v" id="kCarta">R$ 42.855</div><div class="n" id="kCartaN">Lucro de R$ 19.551 sobre o pago</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--blue-l)"><div class="k">Aplicado no CDB, líquido</div><div class="v" id="kCdb">R$ 27.720</div><div class="n" id="kCdbN">Lucro de R$ 4.417 sobre o pago</div></a>
+    <a class="kpi" href="#simulador" style="--c:var(--gold)"><div class="k">Taxa equivalente da venda</div><div class="v" id="kTir">44,8% a.a.</div><div class="n" id="kTirN">Líquido, contra 14% a.a. bruto do CDB</div></a>
+  </div></div>
+
+  <section><div class="wrap">
+    <span class="anc" id="simulador"></span>
+    <div class="sec-head"><div><div class="h-section">Ajuste os <span>valores</span></div><p>Toque nos botões − e + ou na barra. Todos os números da página se recalculam na hora.</p></div></div>
+    <div class="win">
+      <div class="win-bar">Simulação · valores hipotéticos</div>
+      <div class="sim">
+        <div class="sim-in">
+          <div class="fld"><div class="fld-h"><label>Valor da carta<small>Tabela do Grupo 41056</small></label><output id="oCred">R$ 240.000</output></div><div class="chips" id="iCred"><button type="button" class="chip" data-v="200000">200 mil</button><button type="button" class="chip" data-v="210000">210 mil</button><button type="button" class="chip" data-v="220000">220 mil</button><button type="button" class="chip" data-v="230000">230 mil</button><button type="button" class="chip on" data-v="240000">240 mil</button><button type="button" class="chip" data-v="260000">260 mil</button><button type="button" class="chip" data-v="270000">270 mil</button><button type="button" class="chip" data-v="280000">280 mil</button><button type="button" class="chip" data-v="290000">290 mil</button><button type="button" class="chip" data-v="300000">300 mil</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iParc">Parcela mensal no 1º ano<small>Parcela com redutor de 50%</small></label><output id="oParc">R$ 616</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iParc" min="300" max="1500" step="1" style="--p: 26.333333333333332%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iCorr">Correção anual da parcela e da carta<small>Aplicada a cada 12 meses</small></label><output id="oCorr">5,0% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCorr" min="0" max="12" step="0.5" style="--p: 41.66666666666667%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label>Prazo até a venda<small>Contemplação e venda no fim do prazo</small></label><output id="oPrazo">3 anos</output></div><div class="seg" id="iPrazo"><button type="button" data-v="1" class="">1 ano</button><button type="button" data-v="2" class="">2 anos</button><button type="button" data-v="3" class="on">3 anos</button><button type="button" data-v="4" class="">4 anos</button><button type="button" data-v="5" class="">5 anos</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iLance">Lance embutido<small>Sai do valor da carta, sem desembolso</small></label><output id="oLance">30%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iLance" min="0" max="30" step="1" style="--p: 100%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iAgio">Ágio na venda<small>% da carta sem o lance embutido</small></label><output id="oAgio">25%</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iAgio" min="0" max="60" step="1" style="--p: 41.66666666666667%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label for="iCdb">CDB, taxa bruta<small>IR pela tabela regressiva, aporte a aporte</small></label><output id="oCdb">14% a.a.</output></div><div class="rng"><button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><input type="range" id="iCdb" min="6" max="20" step="0.25" style="--p: 57.14285714285714%;"><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="fld"><div class="fld-h"><label>Imposto sobre o lucro da venda<small>Ganho de capital de 15%</small></label></div><div class="seg" id="iIr"><button type="button" data-v="1" class="on">Descontar 15%</button><button type="button" data-v="0" class="">Não descontar</button></div></div>
+          <button class="reset" id="reset" type="button">Voltar aos valores iniciais</button>
+        <div class="sim-live" aria-hidden="true"><span>A venda da carta entrega a mais</span><b>R$ 15.134</b></div></div>
+        <div class="sim-out">
+          <div class="res-tot" id="vTot"><div class="k">A venda da carta entrega a mais</div><div class="v">R$ 15.134</div><div class="n">Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>54,6% acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>44,8% ao ano</b>, já líquido.</div></div>
+          <div class="k out-k" style="margin-top:22px">Vender a carta</div>
+          <div class="res" id="rowsCarta"><div class="res-r"><span>Valor da carta no fim do prazo</span><b>R$ 264.600</b></div><div class="res-r"><span>Lance embutido (30%)</span><b class="m">− R$ 79.380</b></div><div class="res-r"><span>Carta sem o lance embutido</span><b>R$ 185.220</b></div><div class="res-r"><span>Recebido na venda (25% da carta)</span><b>R$ 46.305</b></div><div class="res-r"><span>Parcelas pagas</span><b class="m">− R$ 23.303</b></div><div class="res-r"><span>Lucro bruto</span><b>R$ 23.002</b></div><div class="res-r"><span>Imposto sobre o lucro (15%)</span><b class="m">− R$ 3.450</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 19.551</b></div></div>
+          <div class="k out-k">Aplicar no CDB</div>
+          <div class="res" id="rowsCdb"><div class="res-r"><span>Total aplicado</span><b>R$ 23.303</b></div><div class="res-r"><span>Rendimento bruto</span><b>R$ 5.278</b></div><div class="res-r"><span>Saldo bruto no resgate</span><b>R$ 28.582</b></div><div class="res-r"><span>Imposto de renda</span><b class="m">− R$ 861</b></div><div class="res-r tot"><span>Lucro líquido</span><b>R$ 4.417</b></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g2 cmp" style="margin-top:16px">
+      <div class="card hi"><div class="k">Vender a carta · consórcio contemplado com lance embutido</div><div class="bignum" id="rCarta">R$ 42.855</div><div class="vn">Recebido na venda, já sem imposto</div><p class="p" id="rCartaP">Lucro líquido de R$ 19.551 sobre R$ 23.303 pagos em parcelas.</p></div>
+      <div class="card"><div class="k">Aplicar no CDB · parcela aplicada todo mês</div><div class="bignum" id="rCdb">R$ 27.720</div><div class="vn">Resgatado no fim do prazo, já sem imposto</div><p class="p" id="rCdbP">Lucro líquido de R$ 4.417 sobre R$ 23.303 aplicados.</p></div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="mes"></span>
+    <div class="sec-head"><div><div class="h-section">Como o dinheiro <span>evolui</span></div><p>Valor acumulado em cada caminho, mês a mês, em reais.</p></div></div>
+    <div class="win">
+      <div class="win-bar">Valor acumulado · mês a mês</div>
+      <div class="win-body">
+        <div class="legend">
+          <span class="lg"><i class="dash" style="--c:#5A7AA6"></i>Total pago</span>
+          <span class="lg"><i style="--c:#7AA5D6"></i>Saldo no CDB, líquido</span>
+          <span class="lg"><i class="dot" style="--c:#E3AE3C"></i>Venda da carta, líquido</span>
+        </div>
+        <div class="chart" id="chart"><svg viewBox="0 0 1000 380" role="img" aria-label="Evolução do valor acumulado no CDB e na venda da carta"><line class="gl" x1="70" x2="980" y1="344" y2="344"></line><text class="ax" x="60" y="348" text-anchor="end">0</text><line class="gl" x1="70" x2="980" y1="279.2" y2="279.2"></line><text class="ax" x="60" y="283.2" text-anchor="end">10 mil</text><line class="gl" x1="70" x2="980" y1="214.4" y2="214.4"></line><text class="ax" x="60" y="218.4" text-anchor="end">20 mil</text><line class="gl" x1="70" x2="980" y1="149.6" y2="149.6"></line><text class="ax" x="60" y="153.6" text-anchor="end">30 mil</text><line class="gl" x1="70" x2="980" y1="84.79999999999998" y2="84.79999999999998"></line><text class="ax" x="60" y="88.79999999999998" text-anchor="end">40 mil</text><line class="gl" x1="70" x2="980" y1="20" y2="20"></line><text class="ax" x="60" y="24" text-anchor="end">50 mil</text><text class="ax" x="70" y="370" text-anchor="middle">Início</text><text class="ax" x="373.3333333333333" y="370" text-anchor="middle">1º ano</text><text class="ax" x="676.6666666666666" y="370" text-anchor="middle">2º ano</text><text class="ax" x="980" y="370" text-anchor="middle">3º ano</text><path d="M70,344 L95.3,340.0 L120.6,336.0 L145.8,332.0 L171.1,328.0 L196.4,324.0 L221.7,320.0 L246.9,316.1 L272.2,312.1 L297.5,308.1 L322.8,304.1 L348.1,300.1 L373.3,296.1 L398.6,291.9 L423.9,287.7 L449.2,283.5 L474.4,279.3 L499.7,275.1 L525.0,271.0 L550.3,266.8 L575.6,262.6 L600.8,258.4 L626.1,254.2 L651.4,250.0 L676.7,245.8 L701.9,241.4 L727.2,237.0 L752.5,232.6 L777.8,228.2 L803.1,223.8 L828.3,219.4 L853.6,215.0 L878.9,210.6 L904.2,206.2 L929.4,201.8 L954.7,197.4 L980.0,193.0" fill="none" stroke="#5A7AA6" stroke-width="2" stroke-dasharray="6 5"></path><path d="M70,344 L95.3,340.0 L120.6,335.9 L145.8,331.8 L171.1,327.7 L196.4,323.5 L221.7,319.3 L246.9,315.1 L272.2,310.8 L297.5,306.5 L322.8,302.1 L348.1,297.7 L373.3,293.3 L398.6,288.6 L423.9,283.8 L449.2,279.0 L474.4,274.2 L499.7,269.3 L525.0,264.4 L550.3,259.5 L575.6,254.4 L600.8,249.4 L626.1,244.3 L651.4,239.1 L676.7,233.9 L701.9,228.4 L727.2,222.9 L752.5,217.3 L777.8,211.6 L803.1,205.9 L828.3,200.1 L853.6,194.3 L878.9,188.5 L904.2,182.5 L929.4,176.5 L954.7,170.5 L980.0,164.4" fill="none" stroke="#7AA5D6" stroke-width="3" stroke-linejoin="round"></path><line x1="980" x2="980" y1="192.99474560000007" y2="66.30127184000003" stroke="#E3AE3C" stroke-width="2" stroke-dasharray="3 4"></line><circle cx="980" cy="66.30127184000003" r="7" fill="#E3AE3C" stroke="#040A16" stroke-width="2"></circle><text class="an" x="966" y="64.30127184000003" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">Venda da carta R$ 42.855</text><circle cx="980" cy="164.3716788845117" r="5" fill="#7AA5D6"></circle><text class="an" x="966" y="152.3716788845117" text-anchor="end">CDB R$ 27.720</text><line id="hx" x1="0" x2="0" y1="20" y2="344" stroke="#A9C6EA" stroke-opacity=".35" visibility="hidden"></line><rect id="hov" x="70" y="20" width="910" height="324" fill="transparent"></rect></svg><div class="tip" id="tip"></div></div>
+        <p class="howto"><b>Como ler:</b> as duas linhas sobem juntas com as parcelas. O CDB rende um pouco todo mês; a carta não rende nada até ser vendida, e o ganho todo aparece de uma vez no último mês, no ponto dourado.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="ano"></span>
+    <div class="sec-head"><div><div class="h-section">Parcelas e carta <span>corrigidas</span></div><p>Ano a ano, com a correção aplicada a cada 12 meses.</p></div></div>
+    <div class="win"><div class="table-scroll"><table>
+      <thead><tr><th>Ano</th><th class="r">Parcela mensal</th><th class="r">Pago no ano</th><th class="r">Pago acumulado</th><th class="r">Valor da carta</th><th class="r">Saldo no CDB, bruto</th></tr></thead>
+      <tbody id="tbAnos"><tr><td>1º ano</td><td class="r">R$ 616,00</td><td class="r">R$ 7.392</td><td class="r">R$ 7.392</td><td class="r">R$ 240.000</td><td class="r">R$ 7.941</td></tr><tr><td>2º ano</td><td class="r">R$ 646,80</td><td class="r">R$ 7.762</td><td class="r">R$ 15.154</td><td class="r">R$ 252.000</td><td class="r">R$ 17.392</td></tr><tr><td>3º ano</td><td class="r">R$ 679,14</td><td class="r">R$ 8.150</td><td class="r">R$ 23.303</td><td class="r">R$ 264.600</td><td class="r">R$ 28.582</td></tr><tr class="on"><td>Total</td><td class="r"></td><td class="r">R$ 23.303</td><td class="r">R$ 23.303</td><td class="r">R$ 264.600</td><td class="r">R$ 28.582</td></tr></tbody>
+    </table></div></div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="premissas"></span>
+    <div class="sec-head"><div><div class="h-section">O que está por trás <span>da conta</span></div></div></div>
+    <div class="grid g3">
+      <div class="card"><div class="k">01 · Consórcio</div><p class="p">O cliente paga a parcela com redutor todo mês, corrigida a cada 12 meses. No fim do prazo é contemplado com lance embutido, que sai do valor da carta, sem dinheiro do bolso.</p></div>
+      <div class="card hi"><div class="k">02 · Venda da carta</div><p class="p">A carta contemplada é vendida com ágio sobre o valor dela já sem o lance embutido. O comprador assume as parcelas que faltam. O ganho é o que recebe menos o que pagou.</p></div>
+      <div class="card"><div class="k">03 · CDB</div><p class="p">Cada parcela é aplicada no mesmo dia em que seria paga, e tudo é resgatado no fim do prazo. O imposto segue a tabela regressiva conforme o tempo de cada aplicação.</p></div>
+    </div>
+    <div class="strip">Simulação com valores hipotéticos de correção, ágio e taxa do CDB. O ágio depende do mercado no momento da venda e a contemplação por lance não é garantida em data certa.</div>
+  </div></section>
+
+  <section><div class="wrap">
+    <span class="anc" id="fontes"></span>
+    <div class="sec-head"><div><div class="h-section">De onde veio cada <span>informação</span></div></div></div>
+    <div class="card src">
+      <ol>
+        <li>Condições do Grupo 41056 (Imóveis), Consórcio XP, administrado por Embracon: tabela de crédito e parcela com redutor de 50%, plano de 238 meses, taxa de administração de 18%, fundo de reserva de 3,7%, lance embutido de até 30% do crédito. Campanha Black November, condição válida até 19/11/2026.</li>
+        <li>IR do CDB pela tabela regressiva (22,5% até 180 dias, 20% até 360, 17,5% até 720 e 15% acima): Lei 11.033/2004, art. 1º. <a href="https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11.033.htm" target="_blank" rel="noopener">planalto.gov.br</a></li>
+        <li>Lucro na venda da carta tributado como ganho de capital, alíquota de 15% até R$ 5 milhões de ganho: Lei 13.259/2016, art. 1º. <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13259.htm" target="_blank" rel="noopener">planalto.gov.br</a></li>
+        <li>Correção anual, ágio, prazo e taxa do CDB: valores hipotéticos da simulação, ajustáveis no simulador.</li>
+      </ol>
+    </div>
+  </div></section>
+</div>
+
+<div class="footer"><div class="wrap">
+  <span>Consórcio × CDB · Venda da carta contemplada</span>
+  <span>Material elaborado pela Research Argentum · Argentum / XP Investimentos · Novembro 2026</span>
+  <span class="legal">Material informativo, sem recomendação individual de investimento e sem garantia de rentabilidade. Simulação com valores hipotéticos; o ágio depende do mercado no momento da venda e a contemplação por lance não é garantida em data certa. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos.</span>
+</div></div>
+
+<script>
+/* ═══ DADOS ═══ */
+const TABELA = [ // Grupo 41056 — Imóveis · crédito e parcela com redutor de 50%
+  [200000, 511], [210000, 537], [220000, 562], [230000, 588], [240000, 614],
+  [260000, 665], [270000, 690], [280000, 716], [290000, 741], [300000, 767]
+];
+const INICIAL = { cred: 240000, parc: 616, corr: 5, prazo: 3, lance: 30, agio: 25, cdb: 14, ir: true };
+const IR_GCAP = 0.15;
+
+/* ═══ FORMATOS ═══ */
+const el = id => document.getElementById(id);
+const NB = ' ';
+const num = (v, d = 0) => v.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const brl = (v, d = 0) => 'R$' + NB + num(v, d);
+const pct = (v, d = 1) => num(v, d) + '%';
+const pctCdb = v => { v = Math.round(v * 10000) / 100; return pct(v, Number.isInteger(v) ? 0 : 2); };
+const aliqIR = dias => dias <= 180 ? .225 : dias <= 360 ? .20 : dias <= 720 ? .175 : .15;
+const MENOS = '−' + NB;
+
+/* ═══ ESTADO E CONTROLES ═══ */
+const S = Object.assign({}, INICIAL);
+function txt(id, t) { const e = el(id); if (e && e.textContent !== t) e.textContent = t; }
+function fill(r) { const p = (r.value - r.min) / (r.max - r.min) * 100; r.style.setProperty('--p', p + '%'); }
+function porQuadro(cb) { let pend = false; return () => { if (pend) return; pend = true; requestAnimationFrame(() => { pend = false; cb(); }); }; }
+const run = porQuadro(render);
+
+function chips() {
+  el('iCred').innerHTML = TABELA.map(([c]) => `<button type="button" class="chip${c === S.cred ? ' on' : ''}" data-v="${c}">${c / 1000} mil</button>`).join('');
+}
+function segs() {
+  el('iPrazo').innerHTML = [1, 2, 3, 4, 5].map(a => `<button type="button" data-v="${a}" class="${a === S.prazo ? 'on' : ''}">${a} ${a === 1 ? 'ano' : 'anos'}</button>`).join('');
+  el('iIr').innerHTML = `<button type="button" data-v="1" class="${S.ir ? 'on' : ''}">Descontar 15%</button><button type="button" data-v="0" class="${S.ir ? '' : 'on'}">Não descontar</button>`;
+}
+const RANGES = { iParc: 'parc', iCorr: 'corr', iLance: 'lance', iAgio: 'agio', iCdb: 'cdb' };
+const BSTEP = { iParc: 10, iCorr: 0.5, iLance: 1, iAgio: 1, iCdb: 0.25 };
+function carregar() {
+  Object.entries(RANGES).forEach(([id, k]) => { const r = el(id); r.value = S[k]; fill(r); });
+  chips(); segs();
+}
+function setRange(r, v) { const mn = +r.min, mx = +r.max, st = +r.step || 1; v = Math.min(mx, Math.max(mn, Math.round((v - mn) / st) * st + mn)); v = +v.toFixed(4); if (+r.value === v) return; r.value = v; r.dispatchEvent(new Event('input')); }
+
+el('iCred').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  S.cred = +b.dataset.v; const row = TABELA.find(t => t[0] === S.cred); if (row) { S.parc = row[1]; el('iParc').value = S.parc; fill(el('iParc')); }
+  el('iCred').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render();
+});
+el('iPrazo').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.prazo = +b.dataset.v; el('iPrazo').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render(); });
+el('iIr').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S.ir = b.dataset.v === '1'; el('iIr').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render(); });
+el('reset').addEventListener('click', () => { Object.assign(S, INICIAL); carregar(); render(); });
+
+Object.entries(RANGES).forEach(([id, k]) => {
+  const r = el(id);
+  r.addEventListener('input', () => { S[k] = +r.value; fill(r); run(); });
+  let box = r.parentElement;
+  if (!box.classList.contains('rng')) {
+    box = document.createElement('div'); box.className = 'rng'; r.parentNode.insertBefore(box, r);
+    box.innerHTML = '<button type="button" class="rb" data-d="-1" aria-label="Diminuir">−</button><button type="button" class="rb" data-d="1" aria-label="Aumentar">+</button>';
+    box.insertBefore(r, box.lastChild);
+  }
+  box.querySelectorAll('.rb').forEach(b => b.addEventListener('click', () => setRange(r, +r.value + (+b.dataset.d) * BSTEP[id])));
+  // toque: a página controla a barra (no iPhone o controle nativo só arrasta pela bolinha)
+  let q = null;
+  const at = x => setRange(r, +r.min + Math.min(1, Math.max(0, (x - q.left - 10) / Math.max(1, q.width - 20))) * (r.max - r.min));
+  r.addEventListener('touchstart', e => { if (e.touches.length > 1) return; if (e.cancelable) e.preventDefault(); q = r.getBoundingClientRect(); if (q.width) at(e.touches[0].clientX); else q = null; }, { passive: false });
+  r.addEventListener('touchmove', e => { if (!q) return; if (e.cancelable) e.preventDefault(); at(e.touches[0].clientX); }, { passive: false });
+  const fim = () => { q = null; };
+  r.addEventListener('touchend', fim, { passive: true });
+  r.addEventListener('touchcancel', fim, { passive: true });
+});
+
+/* ═══ MOTOR ═══ */
+function calcular(s) {
+  const corr = s.corr / 100, lance = s.lance / 100, agio = s.agio / 100, cdb = s.cdb / 100;
+  const N = s.prazo * 12, im = Math.pow(1 + cdb, 1 / 12) - 1;
+  const parcelas = [];
+  for (let k = 0; k < N; k++) parcelas.push(s.parc * Math.pow(1 + corr, Math.floor(k / 12)));
+  const pago = parcelas.reduce((a, b) => a + b, 0);
+
+  // carta: corrigida junto com a parcela até o último aniversário antes da venda
+  const carta = s.cred * Math.pow(1 + corr, s.prazo - 1);
+  const embutido = carta * lance, liquida = carta - embutido;
+  const recebe = liquida * agio;
+  const ganho = recebe - pago;
+  const irCarta = s.ir && ganho > 0 ? ganho * IR_GCAP : 0;
+  const cartaLiq = recebe - irCarta;
+
+  // CDB: aporte no início do mês k, resgate no fim do mês N
+  const serie = []; let pagoAc = 0;
+  for (let m = 1; m <= N; m++) {
+    pagoAc += parcelas[m - 1];
+    let sb = 0, sl = 0;
+    for (let k = 0; k < m; k++) {
+      const meses = m - k, v = parcelas[k] * Math.pow(1 + im, meses), r = v - parcelas[k];
+      sb += v; sl += v - r * aliqIR(meses * 365 / 12);
+    }
+    serie.push({ m, pago: pagoAc, cdbB: sb, cdbL: sl });
+  }
+  const bruto = serie[N - 1].cdbB, cdbLiq = serie[N - 1].cdbL, ir = bruto - cdbLiq;
+
+  // taxa equivalente da venda: taxa mensal que leva as parcelas pagas ao valor líquido recebido
+  const vf = i => parcelas.reduce((a, p, k) => a + p * Math.pow(1 + i, N - k), 0) - cartaLiq;
+  let tir = null;
+  if (cartaLiq > 0) {
+    let lo = -0.99, hi = 1;
+    if (vf(lo) < 0 && vf(hi) > 0) { for (let j = 0; j < 200; j++) { const mid = (lo + hi) / 2; vf(mid) > 0 ? hi = mid : lo = mid; } tir = Math.pow(1 + (lo + hi) / 2, 12) - 1; }
+  }
+  return { N, parcelas, pago, carta, embutido, liquida, recebe, ganho, irCarta, cartaLiq, bruto, ir, cdbLiq, serie, tir, s };
+}
+
+const rr = (k, v, cls = '', sub = '') => `<div class="res-r${cls === 'tot' ? ' tot' : ''}"><span>${k}${sub ? `<small>${sub}</small>` : ''}</span><b${cls === 'm' ? ' class="m"' : ''}>${v}</b></div>`;
+const CACHE = {};
+function put(id, html) { if (CACHE[id] === html) return; CACHE[id] = html; el(id).innerHTML = html; }
+function live(k, v) {
+  const sin = document.querySelector('.sim-in'); let f = sin.querySelector('.sim-live');
+  if (!f) { f = document.createElement('div'); f.className = 'sim-live'; f.setAttribute('aria-hidden', 'true'); f.innerHTML = '<span></span><b></b>'; sin.appendChild(f); }
+  if (f.firstChild.textContent !== k) f.firstChild.textContent = k;
+  if (f.lastChild.textContent !== v) f.lastChild.textContent = v;
+}
+
+function render() {
+  const s = S, R = calcular(s);
+  const anos = s.prazo === 1 ? '1 ano' : s.prazo + ' anos';
+  txt('oCred', brl(s.cred)); txt('oParc', brl(s.parc)); txt('oCorr', pct(s.corr) + NB + 'a.a.');
+  txt('oPrazo', anos); txt('oLance', pct(s.lance, 0)); txt('oAgio', pct(s.agio, 0)); txt('oCdb', pctCdb(s.cdb / 100) + NB + 'a.a.');
+
+  txt('hPrazo', anos); txt('hCdb', pctCdb(s.cdb / 100) + ' ao ano');
+  const dif = R.cartaLiq - R.cdbLiq, difPct = R.cdbLiq > 0 ? dif / R.cdbLiq * 100 : 0, venceCarta = dif >= 0;
+  txt('hLbl', venceCarta ? 'A mais com a venda da carta' : 'A mais com o CDB');
+  txt('hBig', brl(Math.abs(dif)));
+  txt('hNote', `Carta de ${brl(s.cred)}, parcelas de ${brl(s.parc)} por mês no 1º ano, venda em ${anos}. Resultado líquido de imposto.`);
+
+  txt('kPago', brl(R.pago)); txt('kPagoN', `${R.N} parcelas, igual nos dois caminhos`);
+  txt('kCarta', brl(R.cartaLiq)); txt('kCartaN', `Lucro de ${brl(R.cartaLiq - R.pago)} sobre o pago`);
+  txt('kCdb', brl(R.cdbLiq)); txt('kCdbN', `Lucro de ${brl(R.cdbLiq - R.pago)} sobre o pago`);
+  txt('kTir', R.tir === null ? '—' : pct(R.tir * 100) + NB + 'a.a.'); txt('kTirN', `Líquido, contra ${pctCdb(s.cdb / 100)} a.a. bruto do CDB`);
+
+  const vk = venceCarta ? 'A venda da carta entrega a mais' : 'O CDB entrega a mais', vv = brl(Math.abs(dif));
+  put('vTot', `<div class="k">${vk}</div><div class="v">${vv}</div><div class="n">` + (venceCarta
+    ? `Com o mesmo dinheiro saindo do bolso todo mês, a venda da carta termina <b>${pct(Math.abs(difPct))} acima</b> do CDB. É o mesmo que aplicar as parcelas a <b>${R.tir === null ? '—' : pct(R.tir * 100)} ao ano</b>, já líquido.`
+    : `Nestes valores, aplicar as parcelas no CDB termina <b>${pct(Math.abs(difPct))} acima</b> da venda da carta.`) + '</div>');
+  live(vk, vv);
+
+  put('rowsCarta',
+    rr('Valor da carta no fim do prazo', brl(R.carta)) +
+    rr(`Lance embutido (${pct(s.lance, 0)})`, MENOS + brl(R.embutido), 'm') +
+    rr('Carta sem o lance embutido', brl(R.liquida)) +
+    rr(`Recebido na venda (${pct(s.agio, 0)} da carta)`, brl(R.recebe)) +
+    rr('Parcelas pagas', MENOS + brl(R.pago), 'm') +
+    rr('Lucro bruto', brl(R.ganho)) +
+    (s.ir ? rr('Imposto sobre o lucro (15%)', MENOS + brl(R.irCarta), 'm') : '') +
+    rr('Lucro líquido', brl(R.ganho - R.irCarta), 'tot'));
+  put('rowsCdb',
+    rr('Total aplicado', brl(R.pago)) +
+    rr('Rendimento bruto', brl(R.bruto - R.pago)) +
+    rr('Saldo bruto no resgate', brl(R.bruto)) +
+    rr('Imposto de renda', MENOS + brl(R.ir), 'm') +
+    rr('Lucro líquido', brl(R.cdbLiq - R.pago), 'tot'));
+
+  txt('rCarta', brl(R.cartaLiq));
+  txt('rCartaP', `Lucro líquido de ${brl(R.ganho - R.irCarta)} sobre ${brl(R.pago)} pagos em parcelas.`);
+  txt('rCdb', brl(R.cdbLiq));
+  txt('rCdbP', `Lucro líquido de ${brl(R.cdbLiq - R.pago)} sobre ${brl(R.pago)} aplicados.`);
+
+  let html = '', acum = 0;
+  for (let a = 0; a < s.prazo; a++) {
+    const p = R.parcelas[a * 12], noAno = p * 12; acum += noAno;
+    html += `<tr><td>${a + 1}º ano</td><td class="r">${brl(p, 2)}</td><td class="r">${brl(noAno)}</td><td class="r">${brl(acum)}</td><td class="r">${brl(s.cred * Math.pow(1 + s.corr / 100, a))}</td><td class="r">${brl(R.serie[a * 12 + 11].cdbB)}</td></tr>`;
+  }
+  html += `<tr class="on"><td>Total</td><td class="r"></td><td class="r">${brl(R.pago)}</td><td class="r">${brl(R.pago)}</td><td class="r">${brl(R.carta)}</td><td class="r">${brl(R.bruto)}</td></tr>`;
+  put('tbAnos', html);
+
+  desenhar(R);
+}
+
+/* ═══ GRÁFICO ═══ */
+let ULT = null;
+function desenhar(R) {
+  ULT = R;
+  const box = el('chart'), cw = box.clientWidth || 1000, mob = cw < 700;
+  const W = mob ? Math.max(300, cw) : 1000, H = mob ? 300 : 380, L = mob ? 46 : 70, Rr = mob ? 8 : 20, T = 20, B = 36;
+  const Sr = R.serie, N = R.N;
+  const maxV = Math.max(R.cartaLiq, Sr[N - 1].cdbL, Sr[N - 1].pago) * 1.1;
+  const passo = maxV > 160000 ? 40000 : maxV > 80000 ? 20000 : maxV > 40000 ? 10000 : maxV > 16000 ? 5000 : 2000;
+  const top = Math.ceil(maxV / passo) * passo;
+  const x = m => L + (m / N) * (W - L - Rr), y = v => T + (1 - v / top) * (H - T - B);
+  let g = '';
+  for (let v = 0; v <= top; v += passo) {
+    g += `<line class="gl" x1="${L}" x2="${W - Rr}" y1="${y(v)}" y2="${y(v)}"/>`;
+    g += `<text class="ax" x="${L - 10}" y="${y(v) + 4}" text-anchor="end">${v === 0 ? '0' : num(v / 1000) + ' mil'}</text>`;
+  }
+  for (let a = 0; a <= R.s.prazo; a++) g += `<text class="ax" x="${x(a * 12)}" y="${H - 10}" text-anchor="middle">${a === 0 ? 'Início' : a + 'º ano'}</text>`;
+  const path = key => 'M' + x(0) + ',' + y(0) + ' ' + Sr.map(p => 'L' + x(p.m).toFixed(1) + ',' + y(p[key]).toFixed(1)).join(' ');
+  g += `<path d="${path('pago')}" fill="none" stroke="#5A7AA6" stroke-width="2" stroke-dasharray="6 5"/>`;
+  g += `<path d="${path('cdbL')}" fill="none" stroke="#7AA5D6" stroke-width="3" stroke-linejoin="round"/>`;
+  const xe = x(N), yc = y(R.cartaLiq), yp = y(Sr[N - 1].pago), yd = y(Sr[N - 1].cdbL);
+  g += `<line x1="${xe}" x2="${xe}" y1="${yp}" y2="${yc}" stroke="#E3AE3C" stroke-width="2" stroke-dasharray="3 4"/>`;
+  g += `<circle cx="${xe}" cy="${yc}" r="7" fill="#E3AE3C" stroke="#040A16" stroke-width="2"/>`;
+  g += `<text class="an" x="${xe - 14}" y="${yc - 2}" text-anchor="end" fill="#E3AE3C" style="fill:#E3AE3C">Venda da carta ${brl(R.cartaLiq)}</text>`;
+  g += `<circle cx="${xe}" cy="${yd}" r="5" fill="#7AA5D6"/>`;
+  const ydT = Math.abs(yd - yc) < 22 ? yd + 20 : yd - 12;
+  g += `<text class="an" x="${xe - 14}" y="${ydT}" text-anchor="end">CDB ${brl(Sr[N - 1].cdbL)}</text>`;
+  g += `<line id="hx" x1="0" x2="0" y1="${T}" y2="${H - B}" stroke="#A9C6EA" stroke-opacity=".35" visibility="hidden"/>`;
+  g += `<rect id="hov" x="${L}" y="${T}" width="${W - L - Rr}" height="${H - T - B}" fill="transparent"/>`;
+  const old = box.querySelector('svg'); if (old) old.remove();
+  box.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolução do valor acumulado no CDB e na venda da carta">${g}</svg>`);
+  const svg = box.querySelector('svg'), tip = el('tip'), hx = svg.querySelector('#hx');
+  const mover = ev => {
+    const pt = ev.touches ? ev.touches[0] : ev, rc = svg.getBoundingClientRect();
+    const sx = (pt.clientX - rc.left) * W / rc.width;
+    const m = Math.min(N, Math.max(1, Math.round((sx - L) / (W - L - Rr) * N))), p = Sr[m - 1];
+    hx.setAttribute('x1', x(m)); hx.setAttribute('x2', x(m)); hx.setAttribute('visibility', 'visible');
+    tip.innerHTML = `<b>Mês ${m}</b><div class="r"><span>Total pago</span><span>${brl(p.pago)}</span></div><div class="r"><span>CDB líquido</span><span>${brl(p.cdbL)}</span></div>` +
+      (m === N ? `<div class="r"><span>Venda da carta</span><span>${brl(R.cartaLiq)}</span></div>` : `<div class="r"><span>Carta</span><span>sem venda ainda</span></div>`);
+    const px = x(m) * rc.width / W, tw = tip.offsetWidth || 200;
+    tip.style.left = Math.min(Math.max(px - tw / 2, 0), rc.width - tw) + 'px'; tip.style.top = '6px'; tip.style.opacity = 1;
+  };
+  const sair = () => { tip.style.opacity = 0; hx.setAttribute('visibility', 'hidden'); };
+  const hov = svg.querySelector('#hov');
+  hov.addEventListener('mousemove', mover); hov.addEventListener('touchmove', mover, { passive: true });
+  hov.addEventListener('touchstart', mover, { passive: true });
+  hov.addEventListener('mouseleave', sair); hov.addEventListener('touchend', sair);
+}
+
+let rz, lw = window.innerWidth; window.addEventListener('resize', () => { if (window.innerWidth === lw) return; lw = window.innerWidth; clearTimeout(rz); rz = setTimeout(() => ULT && desenhar(ULT), 150); });
+carregar(); render();
+</script>
+
+
+</body></html>
